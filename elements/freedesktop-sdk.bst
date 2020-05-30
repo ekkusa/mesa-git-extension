@@ -16,7 +16,7 @@ config:
     bootstrap_build_arch: "%{arch}"
     target_arch: "%{arch}"
     (?):
-    - arch == 'i686':
+    - target_arch == 'i686':
         bootstrap_build_arch: 'x86_64'
-    - arch == 'arm':
+    - target_arch == 'arm':
         bootstrap_build_arch: 'aarch64'

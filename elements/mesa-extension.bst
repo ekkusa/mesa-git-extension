@@ -2,7 +2,7 @@ kind: flatpak_image
 
 build-depends:
 - mesa.bst
-- libdm.bst
+- libdrm.bst
 
 config:
   include:

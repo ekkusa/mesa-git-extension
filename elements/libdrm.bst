@@ -7,7 +7,7 @@ depends:
 - freedesktop-sdk.bst:components/xorg-lib-pciaccess.bst
 
 build-depends:
-- freedesktop-sdk:public-stacks/buildsystem-meson.bst
+- freedesktop-sdk.bst:public-stacks/buildsystem-meson.bst
 
 
 variables:

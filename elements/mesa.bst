@@ -1,23 +1,23 @@
 kind: meson
 
 depends:
-- filename: bootstrap-import.bst
-- filename: components/glslang.bst
-- filename: components/llvm.bst
-- filename: components/libdrm.bst
-- filename: components/libclc.bst
-- filename: components/libglvnd.bst
-- filename: components/libunwind.bst
-- filename: components/libva.bst
-- filename: components/libvdpau.bst
-- filename: extensions/mesa-git/libdrm.bst
-- filename: components/opencl.bst
-- filename: components/wayland.bst
-- filename: components/xorg-lib-xdamage.bst
-- filename: components/xorg-lib-xfixes.bst
-- filename: components/xorg-lib-xrandr.bst
-- filename: components/xorg-lib-xshmfence.bst
-- filename: components/xorg-lib-xxf86vm.bst
+- freedesktop-sdk.bst:bootstrap-import.bst
+- freedesktop-sdk.bst:components/glslang.bst
+- freedesktop-sdk.bst:components/llvm.bst
+- freedesktop-sdk.bst:components/libdrm.bst
+- freedesktop-sdk.bst:components/libclc.bst
+- freedesktop-sdk.bst:components/libglvnd.bst
+- freedesktop-sdk.bst:components/libunwind.bst
+- freedesktop-sdk.bst:components/libva.bst
+- freedesktop-sdk.bst:components/libvdpau.bst
+- freedesktop-sdk.bst:extensions/mesa-git/libdrm.bst
+- freedesktop-sdk.bst:components/opencl.bst
+- freedesktop-sdk.bst:components/wayland.bst
+- freedesktop-sdk.bst:components/xorg-lib-xdamage.bst
+- freedesktop-sdk.bst:components/xorg-lib-xfixes.bst
+- freedesktop-sdk.bst:components/xorg-lib-xrandr.bst
+- freedesktop-sdk.bst:components/xorg-lib-xshmfence.bst
+- freedesktop-sdk.bst:components/xorg-lib-xxf86vm.bst
 
 build-depends:
 - freedesktop-sdk.bst:public-stacks/buildsystem-meson.bst
