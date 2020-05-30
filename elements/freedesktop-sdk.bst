@@ -3,14 +3,13 @@ kind: junction
 sources:
 - kind: git_tag
   url: gitlab:freedesktop-sdk/freedesktop-sdk.git
-  track: '19.08'
+  track: 'master'
+  track-tags: false
   submodules:
     utils/buildstream-abi-checker:
       url: gitlab:freedesktop-sdk/buildstream-abi-checker.git
       checkout: False
-  # Latest release version should be used to ensure efficient CAS
-  # utilization even though we're only using it to get a shell, gcc and make. 
-  ref: freedesktop-sdk-19.08.5-0-g3365dfefb4a2bbe89b6ad843280d165758b7223c
+  ref: freedesktop-sdk-19.08beta.9-955-gdfb3b83a9ffb4c74451354f5c5b607b158cc0f41
 
 config:
   options:
