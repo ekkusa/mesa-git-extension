@@ -1,0 +1,68 @@
+variables:
+  IMAGE_ID: 'f280b874c49cee3ce2e5f3c4af1495238e134e3c'
+  # Docker Images
+  DOCKER_REGISTRY: "registry.gitlab.com/freedesktop-sdk/infrastructure/freedesktop-sdk-docker-images"
+  DOCKER_AMD64: "${DOCKER_REGISTRY}/bst14/amd64:${IMAGE_ID}"
+  DOCKER_AARCH64: "${DOCKER_REGISTRY}/bst14/arm64:${IMAGE_ID}"
+  DOCKER_POWERPC64LE: "${DOCKER_REGISTRY}/bst14/ppc64le:${IMAGE_ID}"
+
+  XDG_CACHE_HOME: "${CI_PROJECT_DIR}/cache"
+
+stages:
+  - build
+
+.build_template: &build_definition
+  stage: build
+  interruptible: true
+  except:
+  - master
+  script:
+    - |
+      if [ -f /cache-certificate/server.crt ]; then
+      mkdir -p ~/.config
+      cat >> ~/.config/buildstream.conf << EOF
+      projects:
+        freedesktop-sdk:
+          artifacts:
+            - url: https://local-cas-server:1102
+              server-cert: /cache-certificate/server.crt
+
+      EOF
+      fi
+      make build ARCH=${ARCH}
+  artifacts:
+    when: always
+    paths:
+      - ${CI_PROJECT_DIR}/cache/buildstream/logs
+
+build_x86_64:
+  <<: *build_definition
+  image: $DOCKER_AMD64
+  variables:
+    ARCH: x86_64
+  tags:
+    - x86_64
+
+build_i686:
+  <<: *build_definition
+  image: $DOCKER_AMD64
+  variables:
+    ARCH: i686
+  tags:
+    - x86_64
+
+build_aarch64:
+  <<: *build_definition
+  image: $DOCKER_AARCH64
+  variables:
+    ARCH: aarch64
+  tags:
+    - aarch64
+
+build_arm:
+  <<: *build_definition
+  image: $DOCKER_AARCH64
+  variables:
+    ARCH: arm
+  tags:
+    - armhf
