@@ -7,29 +7,39 @@ variables:
   DOCKER_POWERPC64LE: "${DOCKER_REGISTRY}/bst14/ppc64le:${IMAGE_ID}"
 
   XDG_CACHE_HOME: "${CI_PROJECT_DIR}/cache"
+  # mesa-git-extension is only available through Flathub beta
+  RELEASE_CHANNEL: beta 
 
 stages:
-  - build
+- build
+- prepare-publish
+- publish
+- finish-publish
+
+before_script:
+  - |
+    if [ -f /cache-certificate/server.crt ]; then
+    mkdir -p ~/.config
+    cat >> ~/.config/buildstream.conf << EOF
+    projects:
+      freedesktop-sdk:
+        artifacts:
+          - url: https://local-cas-server:1102
+            server-cert: /cache-certificate/server.crt
+
+    EOF
+    fi
+  - |
+    export REPO_TOKEN="${FLATHUB_REPO_TOKEN_BETA}"
 
 .build_template: &build_definition
   stage: build
   interruptible: true
   except:
   - master
+  - /^release/.*
   script:
-    - |
-      if [ -f /cache-certificate/server.crt ]; then
-      mkdir -p ~/.config
-      cat >> ~/.config/buildstream.conf << EOF
-      projects:
-        freedesktop-sdk:
-          artifacts:
-            - url: https://local-cas-server:1102
-              server-cert: /cache-certificate/server.crt
-
-      EOF
-      fi
-      make build ARCH=${ARCH}
+  -  make build ARCH=${ARCH}
   artifacts:
     when: always
     paths:
@@ -66,3 +76,80 @@ build_arm:
     ARCH: arm
   tags:
     - armhf
+
+prepare_publish:
+  image: $DOCKER_AMD64
+  stage: prepare-publish
+  tags:
+  - x86_64
+  script:
+  - flat-manager-client create https://hub.flathub.org/ "${RELEASE_CHANNEL}" > publish_build.txt
+  artifacts:
+    paths:
+    - publish_build.txt
+  only:
+  - master
+  - /release/.*
+
+.publish_template: &publish
+  stage: publish
+  script:
+  - make export-repo RELEASE_KIND=${RELEASE_CHANNEL} REPO=repo
+  - flatpak build-update-repo --generate-static-deltas --prune repo
+  - flat-manager-client push $(cat publish_build.txt) repo
+  dependencies:
+  - prepare_publish
+  artifacts:
+    when: always
+    paths:
+    - ${CI_PROJECT_DIR}/cache/buildstream/logs
+  only:
+  - master
+  - /release/.*
+
+publish_x86_64:
+  image: $DOCKER_AMD64
+  <<: *publish
+  tags:
+  - x86_64
+  - cache_x86_64
+  variables:
+    ARCH: x86_64
+
+publish_i686:
+  image: $DOCKER_AMD64
+  <<: *publish
+  tags:
+  - i686
+  - cache_i686
+  variables:
+    ARCH: i686
+
+finish_publish:
+  image: $DOCKER_AMD64
+  stage: finish-publish
+  tags:
+  - x86_64
+  script:
+  - flat-manager-client commit --wait $(cat publish_build.txt)
+  - flat-manager-client publish --wait $(cat publish_build.txt)
+  - flat-manager-client purge $(cat publish_build.txt)
+  only:
+  - master
+  - /release/.*
+  dependencies:
+  - prepare_publish
+
+finish_publish_failed:
+  image: $DOCKER_AMD64
+  stage: finish-publish
+  tags:
+  - x86_64
+  script:
+  - flat-manager-client purge $(cat publish_build.txt)
+  only:
+  - master
+  - /release/.*
+  when: on_failure
+  dependencies:
+  - prepare_publish
