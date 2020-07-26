@@ -29,7 +29,7 @@ build-depends:
 
 environment:
   PKG_CONFIG_PATH: "%{libdir}/pkgconfig:"
-  CXXFLAGS:  "%{target_flags} -std=gnu++17"
+  CXXFLAGS: "%{target_flags} -std=gnu++17"
 
 variables:
   prefix: "/usr/lib/%{gcc_triplet}/GL/mesa-git"
@@ -55,35 +55,35 @@ variables:
 
   optimize-debug: "false"
 
-  meson-local: |
-    -Db_ndebug=true \
-    -Ddri3=true \
-    -Ddri-drivers=%{dri_drivers} \
-    -Degl=true \
-    -Dgallium-drivers=%{gallium_drivers} \
-    -Dgallium-nine=true \
-    -Dgallium-omx=disabled \
-    -Dgallium-opencl=icd \
-    -Dgallium-va=true \
-    -Dgallium-vdpau=true \
-    -Dgallium-xa=false \
-    -Dgallium-xvmc=false \
-    -Dgbm=true \
-    -Dgles1=false \
-    -Dgles2=true \
-    -Dglvnd=true \
-    -Dglx=auto \
-    -Dlibunwind=%{enable_libunwind} \
-    -Dllvm=true \
-    -Dlmsensors=false \
-    -Dosmesa=none \
-    -Dplatforms=x11,drm,surfaceless,wayland \
-    -Dselinux=false \
-    -Dshared-glapi=true \
-    -Dvalgrind=false \
-    -Dvulkan-overlay-layer=true \
-    -Dvulkan-drivers=%{vulkan_drivers} \
-    -Dvulkan-icd-dir="%{libdir}/vulkan/icd.d" \
+  meson-local: >-
+    -Db_ndebug=true
+    -Ddri3=true
+    -Ddri-drivers=%{dri_drivers}
+    -Degl=true
+    -Dgallium-drivers=%{gallium_drivers}
+    -Dgallium-nine=true
+    -Dgallium-omx=disabled
+    -Dgallium-opencl=icd
+    -Dgallium-va=true
+    -Dgallium-vdpau=true
+    -Dgallium-xa=false
+    -Dgallium-xvmc=false
+    -Dgbm=true
+    -Dgles1=false
+    -Dgles2=true
+    -Dglvnd=true
+    -Dglx=auto
+    -Dlibunwind=%{enable_libunwind}
+    -Dllvm=true
+    -Dlmsensors=false
+    -Dosmesa=none
+    -Dplatforms=x11,drm,surfaceless,wayland
+    -Dselinux=false
+    -Dshared-glapi=true
+    -Dvalgrind=false
+    -Dvulkan-overlay-layer=true
+    -Dvulkan-drivers=%{vulkan_drivers}
+    -Dvulkan-icd-dir="%{libdir}/vulkan/icd.d"
     -Dxlib-lease=true
 
 config:
@@ -144,6 +144,6 @@ sources:
   url: freedesktop:mesa/mesa.git
   track: master
   track-tags: false
-  ref: 20.1-branchpoint-444-g56f955e4850035d915a2
+  ref: 20.1-branchpoint-3424-g9e596cc2c21a3542520604aceda6754cd2259941
 - kind: patch
   path: patches/mesa/mesa_libdrm_deps.patch
