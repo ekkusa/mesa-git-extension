@@ -5,7 +5,7 @@ build-depends:
 - mesa-extension.bst
 
 config:
-  arch: "%{arch}"
+  arch: "%{flatpak_arch}"
   repo-mode: archive
   branch: '%{branch}'
   environment:
