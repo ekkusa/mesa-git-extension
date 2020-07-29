@@ -120,7 +120,7 @@ publish_i686:
   image: $DOCKER_AMD64
   <<: *publish
   tags:
-  - i686
+  - x86_64
   - cache_i686
   variables:
     ARCH: i686
