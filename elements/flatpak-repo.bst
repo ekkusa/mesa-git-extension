@@ -1,7 +1,7 @@
 kind: flatpak_repo
 
 build-depends:
-- freedesktop-sdk.bst:public-stacks/flatpak-publish-tools.bst
+- freedesktop-sdk.bst:components/flatpak.bst
 - mesa-extension.bst
 
 config:
@@ -9,7 +9,7 @@ config:
   repo-mode: archive
   branch: '%{branch}'
   environment:
-  - public-stacks/flatpak-publish-tools.bst
+  - components/flatpak.bst
   (?):
   - target_arch == 'i686':
       copy-refs:
