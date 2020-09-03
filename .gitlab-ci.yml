@@ -32,12 +32,12 @@ before_script:
   - |
     export REPO_TOKEN="${FLATHUB_REPO_TOKEN_BETA}"
 
-.build_template: &build_definition
+.merge_request_build:
   stage: build
   interruptible: true
   except:
   - master
-  - /^release/.*
+  - /^release\/.*/
   script:
   -  make build ARCH=${ARCH}
   artifacts:
@@ -46,38 +46,49 @@ before_script:
       - ${CI_PROJECT_DIR}/cache/buildstream/logs
 
 build_x86_64:
-  <<: *build_definition
   image: $DOCKER_AMD64
+  extends:
+  - .merge_request_build
   variables:
     ARCH: x86_64
   tags:
     - x86_64
 
 build_i686:
-  <<: *build_definition
   image: $DOCKER_AMD64
+  extends:
+  - .merge_request_build
   variables:
     ARCH: i686
   tags:
     - x86_64
 
 build_aarch64:
-  <<: *build_definition
   image: $DOCKER_AARCH64
+  extends:
+  - .merge_request_build
   variables:
     ARCH: aarch64
   tags:
     - aarch64
 
 build_arm:
-  <<: *build_definition
   image: $DOCKER_AARCH64
+  extends:
+  - .merge_request_build
   variables:
     ARCH: arm
   tags:
     - armhf
 
+.protected_build:
+  only:
+  - master
+  - /release\/.*/ 
+
 prepare_publish:
+  extends:
+  - .protected_build
   image: $DOCKER_AMD64
   stage: prepare-publish
   tags:
@@ -87,9 +98,6 @@ prepare_publish:
   artifacts:
     paths:
     - publish_build.txt
-  only:
-  - master
-  - /release/.*
 
 .publish_template: &publish
   stage: publish
@@ -105,11 +113,13 @@ prepare_publish:
     - ${CI_PROJECT_DIR}/cache/buildstream/logs
   only:
   - master
-  - /release/.*
+  - /release\/.*/
 
 publish_x86_64:
   image: $DOCKER_AMD64
-  <<: *publish
+  extends:
+  - .protected_build
+  - .publish_template
   tags:
   - x86_64
   - cache_x86_64
@@ -118,15 +128,19 @@ publish_x86_64:
 
 publish_i686:
   image: $DOCKER_AMD64
-  <<: *publish
+  extends:
+  - .protected_build
+  - .publish_template
   tags:
-  - x86_64
+  - i686
   - cache_i686
   variables:
     ARCH: i686
 
 finish_publish:
   image: $DOCKER_AMD64
+  extends:
+  - .protected_build
   stage: finish-publish
   tags:
   - x86_64
@@ -134,22 +148,18 @@ finish_publish:
   - flat-manager-client commit --wait $(cat publish_build.txt)
   - flat-manager-client publish --wait $(cat publish_build.txt)
   - flat-manager-client purge $(cat publish_build.txt)
-  only:
-  - master
-  - /release/.*
   dependencies:
   - prepare_publish
 
 finish_publish_failed:
   image: $DOCKER_AMD64
+  extends:
+  - .protected_build
   stage: finish-publish
   tags:
   - x86_64
   script:
   - flat-manager-client purge $(cat publish_build.txt)
-  only:
-  - master
-  - /release/.*
   when: on_failure
   dependencies:
   - prepare_publish
