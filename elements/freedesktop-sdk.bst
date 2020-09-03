@@ -3,13 +3,13 @@ kind: junction
 sources:
 - kind: git_tag
   url: gitlab:freedesktop-sdk/freedesktop-sdk.git
-  track: 'master'
-  track-tags: false
+  track: 'release/20.08'
+  track-tags: true
   submodules:
     utils/buildstream-abi-checker:
       url: gitlab:freedesktop-sdk/buildstream-abi-checker.git
       checkout: false
-  ref: freedesktop-sdk-20.08beta.4-14-g821088d67a84396b10d79b42e99c4ace5d33cbd1
+  ref: freedesktop-sdk-20.08.0-0-g5931bbdc1a1d3da5f3218a718ff1b4f28d6b114f
 
 config:
   options:
