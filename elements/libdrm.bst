@@ -2,12 +2,12 @@ kind: meson
 description: libdrm
 
 build-depends:
-- public-stacks/buildsystem-meson.bst
+- freedesktop-sdk.bst:public-stacks/buildsystem-meson.bst
 
 depends:
-- bootstrap-import.bst
-- components/xorg-lib-pciaccess.bst
-- components/libdrm.bst
+- freedesktop-sdk.bst:bootstrap-import.bst
+- freedesktop-sdk.bst:components/xorg-lib-pciaccess.bst
+- freedesktop-sdk.bst:components/libdrm.bst
 
 variables:
   prefix: "/usr/lib/%{gcc_triplet}/GL/mesa-git"
