@@ -10,7 +10,6 @@ depends:
 - freedesktop-sdk.bst:components/libunwind.bst
 - freedesktop-sdk.bst:components/libva.bst
 - freedesktop-sdk.bst:components/libvdpau.bst
-- freedesktop-sdk.bst:extensions/mesa-git/libdrm.bst
 - freedesktop-sdk.bst:components/opencl.bst
 - freedesktop-sdk.bst:components/wayland.bst
 - freedesktop-sdk.bst:components/xorg-lib-xdamage.bst
@@ -18,6 +17,7 @@ depends:
 - freedesktop-sdk.bst:components/xorg-lib-xrandr.bst
 - freedesktop-sdk.bst:components/xorg-lib-xshmfence.bst
 - freedesktop-sdk.bst:components/xorg-lib-xxf86vm.bst
+- libdrm.bst
 
 build-depends:
 - freedesktop-sdk.bst:public-stacks/buildsystem-meson.bst
