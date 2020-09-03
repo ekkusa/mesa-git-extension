@@ -1,0 +1,4 @@
+variables:
+  (@): freedesktop-sdk.bst:include/_private/versions.yml
+
+  branch: "%{freedesktop-sdk-flatpak-branch}"
