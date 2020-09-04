@@ -3,6 +3,8 @@ kind: flatpak_image
 build-depends:
 - mesa.bst
 
+(@): elements/config.yml
+
 config:
   include:
   - runtime
