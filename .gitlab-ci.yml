@@ -132,7 +132,7 @@ publish_i686:
   - .protected_build
   - .publish_template
   tags:
-  - x86_64
+  - i686
   - cache_i686
   variables:
     ARCH: i686
