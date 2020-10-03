@@ -10,7 +10,6 @@ depends:
 - freedesktop-sdk.bst:components/libdrm.bst
 
 variables:
-  prefix: "/usr/lib/%{gcc_triplet}/GL/mesa-git"
   lib: "lib"
   debugdir: "/usr/lib/debug"
 
