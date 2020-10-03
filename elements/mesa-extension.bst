@@ -11,7 +11,7 @@ config:
   - devel
   exclude:
   - debug
-  directory: "%{libdir}"
+  directory: "%{prefix}"
   metadata:
     Runtime:
       name: org.freedesktop.Platform.GL.mesa-git
