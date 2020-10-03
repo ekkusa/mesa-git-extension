@@ -63,15 +63,6 @@ build_i686:
   tags:
     - x86_64
 
-build_aarch64:
-  image: $DOCKER_AARCH64
-  extends:
-  - .merge_request_build
-  variables:
-    ARCH: aarch64
-  tags:
-    - aarch64
-
 .protected_build:
   only:
   - master
