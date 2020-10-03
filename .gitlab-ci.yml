@@ -72,15 +72,6 @@ build_aarch64:
   tags:
     - aarch64
 
-build_arm:
-  image: $DOCKER_AARCH64
-  extends:
-  - .merge_request_build
-  variables:
-    ARCH: arm
-  tags:
-    - armhf
-
 .protected_build:
   only:
   - master
