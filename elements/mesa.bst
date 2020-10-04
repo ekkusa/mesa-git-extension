@@ -32,7 +32,6 @@ environment:
   CXXFLAGS: "%{target_flags} -std=gnu++17"
 
 variables:
-  prefix: "/usr/lib/%{gcc_triplet}/GL/mesa-git"
   lib: "lib"
   debugdir: "/usr/lib/debug"
 
