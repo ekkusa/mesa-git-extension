@@ -45,23 +45,31 @@ before_script:
     paths:
       - ${CI_PROJECT_DIR}/cache/buildstream/logs
 
-build_x86_64:
+.builder-x86_64:
   image: $DOCKER_AMD64
-  extends:
-  - .merge_request_build
+  tags:
+  - x86_64
+  - cache_x86_64
   variables:
     ARCH: x86_64
-  tags:
-    - x86_64
 
-build_i686:
+.builder-i686:
   image: $DOCKER_AMD64
+  tags:
+  - x86_64
+  - cache_i686
+  variables:
+    ARCH: i686		  
+
+build_x86_64:
   extends:
   - .merge_request_build
-  variables:
-    ARCH: i686
-  tags:
-    - x86_64
+  - .builder-x86_64
+
+build_i686:
+  extends:
+  - .merge_request_build
+  - .builder-i686
 
 .protected_build:
   only:
@@ -71,10 +79,8 @@ build_i686:
 prepare_publish:
   extends:
   - .protected_build
-  image: $DOCKER_AMD64
+  - .builder-x86_64
   stage: prepare-publish
-  tags:
-  - x86_64
   script:
   - flat-manager-client create https://hub.flathub.org/ "${RELEASE_CHANNEL}" > publish_build.txt
   artifacts:
@@ -98,34 +104,23 @@ prepare_publish:
   - /release\/.*/
 
 publish_x86_64:
-  image: $DOCKER_AMD64
   extends:
   - .protected_build
   - .publish_template
-  tags:
-  - x86_64
-  - cache_x86_64
-  variables:
-    ARCH: x86_64
+  - .builder-x86_64
 
 publish_i686:
   image: $DOCKER_AMD64
   extends:
   - .protected_build
   - .publish_template
-  tags:
-  - i686
-  - cache_i686
-  variables:
-    ARCH: i686
+  - .builder-i686
 
 finish_publish:
-  image: $DOCKER_AMD64
   extends:
   - .protected_build
+  - .builder-x86_64
   stage: finish-publish
-  tags:
-  - x86_64
   script:
   - flat-manager-client commit --wait $(cat publish_build.txt)
   - flat-manager-client publish --wait $(cat publish_build.txt)
@@ -134,12 +129,10 @@ finish_publish:
   - prepare_publish
 
 finish_publish_failed:
-  image: $DOCKER_AMD64
   extends:
   - .protected_build
+  - .builder-x86_64
   stage: finish-publish
-  tags:
-  - x86_64
   script:
   - flat-manager-client purge $(cat publish_build.txt)
   when: on_failure
