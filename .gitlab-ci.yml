@@ -59,7 +59,7 @@ before_script:
   - x86_64
   - cache_i686
   variables:
-    ARCH: i686		  
+    ARCH: i686
 
 build_x86_64:
   extends:
