@@ -4,12 +4,12 @@ sources:
 - kind: git_tag
   url: gitlab:freedesktop-sdk/freedesktop-sdk.git
   track: 'release/20.08'
-  track-tags: false
+  track-tags: true
   submodules:
     utils/buildstream-abi-checker:
       url: gitlab:freedesktop-sdk/buildstream-abi-checker.git
       checkout: false
-  ref: freedesktop-sdk-20.08.0-129-g2c9e0720c0e5b9d7309448ae46da5ccfc161aa92
+  ref: freedesktop-sdk-20.08.1-0-ge1a0def32d08a3f4a44a972c69da78cbc84a0348
 
 config:
   options:
