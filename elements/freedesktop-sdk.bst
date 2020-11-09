@@ -9,7 +9,7 @@ sources:
     utils/buildstream-abi-checker:
       url: gitlab:freedesktop-sdk/buildstream-abi-checker.git
       checkout: false
-  ref: freedesktop-sdk-20.08rc.1-266-g14abc8d5fa4ca6f5cd385535ff99567256d2d46b
+  ref: freedesktop-sdk-20.08rc.1-304-g0612b052fae2fe899f411f416fef7e477db41c3a
 
 config:
   options:
