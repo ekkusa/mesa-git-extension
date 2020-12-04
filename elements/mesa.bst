@@ -76,7 +76,7 @@ variables:
     -Dllvm=true
     -Dlmsensors=false
     -Dosmesa=none
-    -Dplatforms=x11,drm,surfaceless,wayland
+    -Dplatforms=x11,wayland
     -Dselinux=false
     -Dshared-glapi=true
     -Dvalgrind=false
