@@ -76,7 +76,7 @@ variables:
     -Dllvm=true
     -Dlmsensors=false
     -Dosmesa=none
-    -Dplatforms=x11,drm,surfaceless,wayland
+    -Dplatforms=x11,wayland
     -Dselinux=false
     -Dshared-glapi=true
     -Dvalgrind=false
@@ -84,6 +84,7 @@ variables:
     -Dvulkan-drivers=%{vulkan_drivers}
     -Dvulkan-icd-dir="%{libdir}/vulkan/icd.d"
     -Dxlib-lease=true
+    -Dmicrosoft-clc=disabled
 
 config:
   install-commands:
@@ -143,6 +144,6 @@ sources:
   url: freedesktop:mesa/mesa.git
   track: master
   track-tags: false
-  ref: 20.2-branchpoint-3941-gfc2814417e9961883feb079e0eef3d4d1705d2d6
+  ref: 20.3-branchpoint-1099-gf173bf1be963a5df4379afd236fd843dd784733f
 - kind: patch
   path: patches/mesa/mesa_libdrm_deps.patch
