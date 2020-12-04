@@ -18,8 +18,8 @@ index 39f8e19f7ce..1e522d0cd5b 100644
        '-DGEN_VERSIONx10=@0@'.format(v),
      ],
      gnu_symbol_visibility : 'hidden',
--    dependencies : [dep_libdrm, idep_nir_headers],
-+    dependencies : [dep_libdrm, dep_libdrm_intel, idep_nir_headers],
+-    dependencies : [dep_libdrm, idep_nir_headers, idep_mesautil],
++    dependencies : [dep_libdrm, dep_libdrm_intel, idep_nir_headers, idep_mesautil],
    )
  endforeach
  
