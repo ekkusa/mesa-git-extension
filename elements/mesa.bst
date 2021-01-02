@@ -75,7 +75,7 @@ variables:
     -Dlibunwind=%{enable_libunwind}
     -Dllvm=true
     -Dlmsensors=false
-    -Dosmesa=none
+    -Dosmesa=false
     -Dplatforms=x11,wayland
     -Dselinux=false
     -Dshared-glapi=true
