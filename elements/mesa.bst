@@ -75,7 +75,7 @@ variables:
     -Dlibunwind=%{enable_libunwind}
     -Dllvm=true
     -Dlmsensors=false
-    -Dosmesa=none
+    -Dosmesa=false
     -Dplatforms=x11,wayland
     -Dselinux=false
     -Dshared-glapi=true
@@ -144,6 +144,6 @@ sources:
   url: freedesktop:mesa/mesa.git
   track: master
   track-tags: false
-  ref: 20.3-branchpoint-1191-gf93b7d14d66d8ba70d44772d1a1b6696310b7d17
+  ref: 20.3-branchpoint-1930-g9ef2c44ce682b7981bd7a68c65f338f1e33bb001
 - kind: patch
   path: patches/mesa/mesa_libdrm_deps.patch
