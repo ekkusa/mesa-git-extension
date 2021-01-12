@@ -3,7 +3,7 @@ kind: meson
 depends:
 - freedesktop-sdk.bst:bootstrap-import.bst
 - freedesktop-sdk.bst:components/glslang.bst
-- freedesktop-sdk.bst:components/llvm.bst
+- freedesktop-sdk.bst:extensions/mesa/llvm11.bst
 - freedesktop-sdk.bst:components/libdrm.bst
 - freedesktop-sdk.bst:components/libclc.bst
 - freedesktop-sdk.bst:components/libglvnd.bst
@@ -29,6 +29,7 @@ build-depends:
 
 environment:
   PKG_CONFIG_PATH: "%{libdir}/pkgconfig:"
+  PATH: "%{bindir}:/usr/bin"
   CXXFLAGS: "%{target_flags} -std=gnu++17"
 
 variables:
