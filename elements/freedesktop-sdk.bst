@@ -10,6 +10,8 @@ sources:
       url: gitlab:freedesktop-sdk/buildstream-abi-checker.git
       checkout: false
   ref: freedesktop-sdk-20.08.3-66-gdbe0289c6cd1cd8e9cd466bf710ded536c5d7aac
+- kind: patch
+  path: patches/freedesktop-sdk/llvm-prefix.patch
 
 config:
   options:
