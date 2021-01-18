@@ -7,8 +7,9 @@ variables:
   DOCKER_POWERPC64LE: "${DOCKER_REGISTRY}/bst16/ppc64le:${IMAGE_ID}"
 
   XDG_CACHE_HOME: "${CI_PROJECT_DIR}/cache"
+  BST_CACHE_SERVER_ADDRESS: 'freedesktop-sdk-cache.codethink.co.uk'
   # mesa-git-extension is only available through Flathub beta
-  RELEASE_CHANNEL: beta 
+  RELEASE_CHANNEL: beta
 
 stages:
 - build
@@ -18,19 +19,43 @@ stages:
 
 before_script:
   - |
-    if [ -f /cache-certificate/server.crt ]; then
-    mkdir -p ~/.config
-    cat >> ~/.config/buildstream.conf << EOF
-    projects:
-      freedesktop-sdk:
-        artifacts:
-          - url: https://local-cas-server:1102
-            server-cert: /cache-certificate/server.crt
-
-    EOF
-    fi
-  - |
     export REPO_TOKEN="${FLATHUB_REPO_TOKEN_BETA}"
+
+  - mkdir -p ~/.config
+  - mkdir -p /etc/ssl/CAS
+
+  # Private SSL keys/certs for pushing to the CAS server
+  - |
+    if [ -n "$GITLAB_CAS_PUSH_CERT" ] && [ -n "$GITLAB_CAS_PUSH_KEY" ]; then
+      echo "$GITLAB_CAS_PUSH_CERT" > /etc/ssl/CAS/server.crt
+      echo "$GITLAB_CAS_PUSH_KEY" > /etc/ssl/CAS/server.key
+    fi
+
+  - |
+    {
+      echo "projects:"
+      for project in mesa-git freedesktop-sdk; do
+        echo "  ${project}:"
+        echo "    artifacts:"
+        if [ -f /cache-certificate/server.crt ]; then
+          echo "    - url: https://local-cas-server:1102"
+          echo "      client-key: /etc/ssl/CAS/server.key"
+          echo "      client-cert: /etc/ssl/CAS/server.crt"
+          echo "      server-cert: /cache-certificate/server.crt"
+          if [ "${DISABLE_CACHE_PUSH:+set}" != set ]; then
+            echo "      push: true"
+          fi
+        fi
+        if [ -n "$GITLAB_CAS_PUSH_CERT" ] && [ -n "$GITLAB_CAS_PUSH_KEY" ]; then
+          echo "    - url: https://${BST_CACHE_SERVER_ADDRESS}:11002"
+          echo "      client-key: /etc/ssl/CAS/server.key"
+          echo "      client-cert: /etc/ssl/CAS/server.crt"
+          if [ "${DISABLE_CACHE_PUSH:+set}" != set ]; then
+            echo "      push: true"
+          fi
+        fi
+      done
+    } >> ~/.config/buildstream.conf
 
 .merge_request_build:
   stage: build
@@ -89,6 +114,8 @@ prepare_publish:
 
 .publish_template: &publish
   stage: publish
+  variables:
+    DISABLE_CACHE_PUSH: 1
   script:
   - make export-repo RELEASE_KIND=${RELEASE_CHANNEL} REPO=repo
   - flatpak build-update-repo --generate-static-deltas --prune repo
