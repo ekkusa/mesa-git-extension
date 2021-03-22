@@ -3,7 +3,7 @@ kind: meson
 depends:
 - freedesktop-sdk.bst:bootstrap-import.bst
 - freedesktop-sdk.bst:components/glslang.bst
-- freedesktop-sdk.bst:extensions/mesa/llvm11.bst
+- freedesktop-sdk.bst:extensions/mesa/llvm.bst
 - freedesktop-sdk.bst:components/libdrm.bst
 - freedesktop-sdk.bst:components/libclc.bst
 - freedesktop-sdk.bst:components/libglvnd.bst
