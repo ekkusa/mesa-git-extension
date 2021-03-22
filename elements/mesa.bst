@@ -5,7 +5,7 @@ depends:
 - freedesktop-sdk.bst:components/glslang.bst
 - freedesktop-sdk.bst:components/llvm.bst
 - freedesktop-sdk.bst:components/libdrm.bst
-- freedesktop-sdk.bst:components/libclc.bst
+- freedesktop-sdk.bst:extensions/mesa/libclc.bst
 - freedesktop-sdk.bst:components/libglvnd.bst
 - freedesktop-sdk.bst:components/libunwind.bst
 - freedesktop-sdk.bst:components/libva.bst
@@ -28,7 +28,7 @@ build-depends:
 - freedesktop-sdk.bst:components/wayland-protocols.bst
 
 environment:
-  PKG_CONFIG_PATH: "%{libdir}/pkgconfig:"
+  PKG_CONFIG_PATH: "%{libdir}/pkgconfig:%{datadir}/pkgconfig"
   CXXFLAGS: "%{target_flags} -std=gnu++17"
 
 variables:
