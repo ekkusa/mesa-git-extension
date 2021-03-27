@@ -1,0 +1,19 @@
+From 5f75c43c482c1b18e1dce37a8fc4401013185dd8 Mon Sep 17 00:00:00 2001
+From: Seppo Yli-Olli <seppo.yliolli@gmail.com>
+Date: Mon, 22 Mar 2021 23:58:34 +0200
+Subject: [PATCH] Patch extension things to be built inside mesa-git
+
+
+diff --git a/elements/extensions/mesa/config.yml b/elements/extensions/mesa/config.yml
+index a6336699..9d7fa153 100644
+--- a/elements/extensions/mesa/config.yml
++++ b/elements/extensions/mesa/config.yml
+@@ -1,4 +1,4 @@
+ variables:
+-  prefix: "/usr/lib/%{gcc_triplet}/GL/default"
++  prefix: "/usr/lib/%{gcc_triplet}/GL/mesa-git"
+   lib: "lib"
+   debugdir: "/usr/lib/debug"
+-- 
+2.30.2
+

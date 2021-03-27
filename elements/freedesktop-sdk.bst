@@ -9,9 +9,11 @@ sources:
     utils/buildstream-abi-checker:
       url: gitlab:freedesktop-sdk/buildstream-abi-checker.git
       checkout: false
-  ref: freedesktop-sdk-20.08.3-66-gdbe0289c6cd1cd8e9cd466bf710ded536c5d7aac
+  ref: freedesktop-sdk-20.08.6-34-g8941979b0c1734ca7cfec34d890e473474cf122a
 - kind: patch
-  path: patches/freedesktop-sdk/llvm-prefix.patch
+  path: patches/freedesktop-sdk/mesa-extension-prefix.patch
+- kind: patch
+  path: patches/freedesktop-sdk/also-use-config.yml-in-ldconfig-element.patch
 
 config:
   options:
