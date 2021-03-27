@@ -12,6 +12,8 @@ sources:
   ref: freedesktop-sdk-20.08.6-34-g8941979b0c1734ca7cfec34d890e473474cf122a
 - kind: patch
   path: patches/freedesktop-sdk/mesa-extension-prefix.patch
+- kind: patch
+  path: patches/freedesktop-sdk/also-use-config.yml-in-ldconfig-element.patch
 
 config:
   options:
