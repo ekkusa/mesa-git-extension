@@ -9,9 +9,9 @@ sources:
     utils/buildstream-abi-checker:
       url: gitlab:freedesktop-sdk/buildstream-abi-checker.git
       checkout: false
-  ref: freedesktop-sdk-20.08rc.1-867-g252689da503711f38ce8379e0eec0c06e0de1c9e
+  ref: freedesktop-sdk-20.08rc.1-887-g2da214b057cfaa03eafde3992122bf4a99ee6ebb
 - kind: patch
-  path: patches/freedesktop-sdk/move-libclc-to-inside-mesa-git-extension.patch  
+  path: patches/freedesktop-sdk/patch-config-to-point-to-mesa-git.patch
 
 config:
   options:
