@@ -4,12 +4,12 @@ sources:
 - kind: git_tag
   url: gitlab:freedesktop-sdk/freedesktop-sdk.git
   track: 'release/20.08'
-  track-tags: false
+  track-tags: true
   submodules:
     utils/buildstream-abi-checker:
       url: gitlab:freedesktop-sdk/buildstream-abi-checker.git
       checkout: false
-  ref: freedesktop-sdk-20.08.7-4-gd17c821858c3a923671be01231c14a60a9ec7192
+  ref: freedesktop-sdk-20.08.8-0-gfbcc9f667d93cb5f106e1bd3ed535f6d0c88f76a
 - kind: patch
   path: patches/freedesktop-sdk/mesa-extension-prefix.patch
 
