@@ -144,6 +144,6 @@ sources:
   url: freedesktop:mesa/mesa.git
   track: master
   track-tags: false
-  ref: 21.0-branchpoint-4408-g44ed8378bf69fc3762e114eb3b1985daa6566e28
+  ref: 21.1-branchpoint-1084-ga1c56b80915a1105c5a62aa6ff3ac71c1edd143d
 - kind: patch
   path: patches/mesa/mesa_libdrm_deps.patch
