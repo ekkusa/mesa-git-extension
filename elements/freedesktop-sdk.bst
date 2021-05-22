@@ -9,7 +9,7 @@ sources:
     utils/buildstream-abi-checker:
       url: gitlab:freedesktop-sdk/buildstream-abi-checker.git
       checkout: false
-  ref: freedesktop-sdk-20.08rc.1-990-g323f6a13fc1d48a168023d575d6aecce192dea43
+  ref: freedesktop-sdk-20.08rc.1-1145-g490a8d63f863283842c7035d4aecb2b4478d6495
 - kind: patch
   path: patches/freedesktop-sdk/patch-config-to-point-to-mesa-git.patch
 
