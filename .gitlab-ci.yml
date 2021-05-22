@@ -112,7 +112,7 @@ prepare_publish:
     paths:
     - publish_build.txt
 
-.publish_template: &publish
+.publish_template:
   stage: publish
   variables:
     DISABLE_CACHE_PUSH: 1
