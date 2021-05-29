@@ -4,6 +4,8 @@ depends:
 - freedesktop-sdk.bst:bootstrap-import.bst
 - freedesktop-sdk.bst:components/glslang.bst
 - freedesktop-sdk.bst:extensions/mesa/llvm.bst
+- freedesktop-sdk.bst:components/m4.bst
+- freedesktop-sdk.bst:components/appstream-glib.bst
 - freedesktop-sdk.bst:components/libdrm.bst
 - freedesktop-sdk.bst:components/libclc.bst
 - freedesktop-sdk.bst:components/libglvnd.bst
@@ -54,6 +56,9 @@ variables:
       enable_libunwind: 'false'
 
   optimize-debug: "false"
+  app-id: org.freedesktop.Platform.GL.mesa-git
+  appstream-xml: "%{app-id}.appdata.xml"
+    
 
   meson-local: >-
     -Db_ndebug=true
@@ -88,8 +93,24 @@ variables:
     -Dmicrosoft-clc=disabled
 
 config:
+  build-commands:
+    (>):
+    - |
+      set -e
+      CURRENT_REF=$(git describe --match *branchpoint*)
+      TIMESTAMP=$(git log -1 --format="%at" ${CURRENT_REF})
+      VERSION_DATE=$(date -d @"$TIMESTAMP" -Idate)
+      m4 -D__VERSION__=${CURRENT_REF} -D__VERSION_DATE__=${VERSION_DATE} \
+      %{appstream-xml}.in > %{appstream-xml}
+    
   install-commands:
     (>):
+    - |
+      mkdir -p %{install-root}%{datadir}/appdata
+      install %{appstream-xml} %{install-root}%{datadir}/appdata
+      appstream-compose --basename=%{app-id} --prefix=%{install-root}%{prefix} \
+      --origin=flatpak %{app-id}
+
     - |
       mkdir -p "%{install-root}%{libdir}"
       mv "%{install-root}%{sysconfdir}/OpenCL" "%{install-root}%{libdir}/"
@@ -146,5 +167,7 @@ sources:
   track: master
   track-tags: false
   ref: 21.0-branchpoint-4408-g44ed8378bf69fc3762e114eb3b1985daa6566e28
+- kind: local
+  path: files/mesa/org.freedesktop.Platform.GL.mesa-git.appdata.xml.in
 - kind: patch
   path: patches/mesa/mesa_libdrm_deps.patch
