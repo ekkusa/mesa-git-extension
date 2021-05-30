@@ -58,7 +58,7 @@ variables:
   optimize-debug: "false"
   app-id: org.freedesktop.Platform.GL.mesa-git
   appstream-xml: "%{app-id}.appdata.xml"
-    
+
 
   meson-local: >-
     -Db_ndebug=true
@@ -102,7 +102,7 @@ config:
       VERSION_DATE=$(date -d @"$TIMESTAMP" -Idate)
       m4 -D__VERSION__=${CURRENT_REF} -D__VERSION_DATE__=${VERSION_DATE} \
       %{appstream-xml}.in > %{appstream-xml}
-    
+
   install-commands:
     (>):
     - |
@@ -164,9 +164,9 @@ public:
 sources:
 - kind: git_tag
   url: freedesktop:mesa/mesa.git
-  track: master
+  track: main
   track-tags: false
-  ref: 21.0-branchpoint-4408-g44ed8378bf69fc3762e114eb3b1985daa6566e28
+  ref: 21.1-branchpoint-2061-g53c84551f5ab39cee9bcb0b50d12113dd42b8545
 - kind: local
   path: files/mesa/org.freedesktop.Platform.GL.mesa-git.appdata.xml.in
 - kind: patch
