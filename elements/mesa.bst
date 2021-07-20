@@ -165,7 +165,7 @@ sources:
   url: freedesktop:mesa/mesa.git
   track: main
   track-tags: false
-  ref: 21.1-branchpoint-2061-g53c84551f5ab39cee9bcb0b50d12113dd42b8545
+  ref: 21.2-branchpoint-151-gb5e782f5f43185076acbbea1e42000fd1fb48aa0
 - kind: local
   path: files/mesa/org.freedesktop.Platform.GL.mesa-git.appdata.xml.in
 - kind: patch
