@@ -102,7 +102,6 @@ build_i686:
 prepare_publish:
   extends:
   - .protected_build
-  - .builder-x86_64
   stage: prepare-publish
   script:
   - flat-manager-client create https://hub.flathub.org/ "${RELEASE_CHANNEL}" > publish_build.txt
