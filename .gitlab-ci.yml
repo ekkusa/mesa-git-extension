@@ -138,7 +138,7 @@ publish_i686:
   extends:
   - .protected_build
   - .publish_template
-  - .builder-x86_64
+  - .builder-i686
 
 finish_publish:
   extends:
