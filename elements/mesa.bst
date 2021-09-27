@@ -7,7 +7,6 @@ depends:
 - freedesktop-sdk.bst:components/appstream-glib.bst
 - freedesktop-sdk.bst:components/llvm.bst
 - freedesktop-sdk.bst:components/libdrm.bst
-- freedesktop-sdk.bst:extensions/mesa/libclc.bst
 - freedesktop-sdk.bst:components/libglvnd.bst
 - freedesktop-sdk.bst:components/libunwind.bst
 - freedesktop-sdk.bst:components/libva.bst
@@ -19,6 +18,7 @@ depends:
 - freedesktop-sdk.bst:components/xorg-lib-xrandr.bst
 - freedesktop-sdk.bst:components/xorg-lib-xshmfence.bst
 - freedesktop-sdk.bst:components/xorg-lib-xxf86vm.bst
+- freedesktop-sdk.bst:extensions/mesa/libclc.bst
 - freedesktop-sdk.bst:extensions/mesa/libdrm.bst
 
 build-depends:
@@ -163,9 +163,7 @@ public:
 sources:
 - kind: git_tag
   url: freedesktop:mesa/mesa.git
-  track: main
-  track-tags: false
-  ref: 21.1-branchpoint-2061-g53c84551f5ab39cee9bcb0b50d12113dd42b8545
+  ref: master
 - kind: local
   path: files/mesa/org.freedesktop.Platform.GL.mesa-git.appdata.xml.in
 - kind: patch

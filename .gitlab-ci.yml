@@ -2,14 +2,14 @@ variables:
   IMAGE_ID: '6e1e605bbe7781efd451dd0c155e85ea94adf49e'
   # Docker Images
   DOCKER_REGISTRY: "registry.gitlab.com/freedesktop-sdk/infrastructure/freedesktop-sdk-docker-images"
-  DOCKER_AMD64: "${DOCKER_REGISTRY}/bst16/amd64:${IMAGE_ID}"
-  DOCKER_AARCH64: "${DOCKER_REGISTRY}/bst16/arm64:${IMAGE_ID}"
-  DOCKER_POWERPC64LE: "${DOCKER_REGISTRY}/bst16/ppc64le:${IMAGE_ID}"
 
   XDG_CACHE_HOME: "${CI_PROJECT_DIR}/cache"
   BST_CACHE_SERVER_ADDRESS: 'freedesktop-sdk-cache.codethink.co.uk'
   # mesa-git-extension is only available through Flathub beta
   RELEASE_CHANNEL: beta
+
+default:
+  image: "${DOCKER_REGISTRY}/bst16:latest"
 
 stages:
 - build
@@ -71,7 +71,6 @@ before_script:
       - ${CI_PROJECT_DIR}/cache/buildstream/logs
 
 .builder-x86_64:
-  image: $DOCKER_AMD64
   tags:
   - x86_64
   - cache_x86_64
@@ -79,7 +78,6 @@ before_script:
     ARCH: x86_64
 
 .builder-i686:
-  image: $DOCKER_AMD64
   tags:
   - x86_64
   - cache_i686
@@ -141,12 +139,11 @@ publish_i686:
   extends:
   - .protected_build
   - .publish_template
-  - .builder-i686
+  - .builder-x86_64
 
 finish_publish:
   extends:
   - .protected_build
-  - .builder-x86_64
   stage: finish-publish
   script:
   - flat-manager-client commit --wait $(cat publish_build.txt)
@@ -158,7 +155,6 @@ finish_publish:
 finish_publish_failed:
   extends:
   - .protected_build
-  - .builder-x86_64
   stage: finish-publish
   script:
   - flat-manager-client purge $(cat publish_build.txt)
