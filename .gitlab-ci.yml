@@ -135,7 +135,6 @@ publish_x86_64:
   - .builder-x86_64
 
 publish_i686:
-  image: $DOCKER_AMD64
   extends:
   - .protected_build
   - .publish_template
