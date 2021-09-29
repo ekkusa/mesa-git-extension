@@ -163,7 +163,7 @@ public:
 sources:
 - kind: git_tag
   url: freedesktop:mesa/mesa.git
-  ref: master
+  ref: main
 - kind: local
   path: files/mesa/org.freedesktop.Platform.GL.mesa-git.appdata.xml.in
 - kind: patch
