@@ -5,7 +5,6 @@ depends:
 - freedesktop-sdk.bst:components/glslang.bst
 - freedesktop-sdk.bst:components/m4.bst
 - freedesktop-sdk.bst:components/appstream-glib.bst
-- freedesktop-sdk.bst:components/llvm.bst
 - freedesktop-sdk.bst:components/libdrm.bst
 - freedesktop-sdk.bst:components/libglvnd.bst
 - freedesktop-sdk.bst:components/libunwind.bst
@@ -20,11 +19,13 @@ depends:
 - freedesktop-sdk.bst:components/xorg-lib-xxf86vm.bst
 - freedesktop-sdk.bst:extensions/mesa/libclc.bst
 - freedesktop-sdk.bst:extensions/mesa/libdrm.bst
+- freedesktop-sdk.bst:extensions/mesa/llvm.bst
 
 build-depends:
 - freedesktop-sdk.bst:public-stacks/buildsystem-meson.bst
 - freedesktop-sdk.bst:components/bison.bst
 - freedesktop-sdk.bst:components/flex.bst
+- freedesktop-sdk.bst:components/llvm.bst
 - freedesktop-sdk.bst:components/python3.bst
 - freedesktop-sdk.bst:components/python3-mako.bst
 - freedesktop-sdk.bst:components/wayland-protocols.bst
