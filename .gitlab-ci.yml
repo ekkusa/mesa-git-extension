@@ -137,14 +137,10 @@ publish_i686:
   - .publish_template
   - .builder-i686
 
-finish_publish:
+.finish_publish_base:
   extends:
   - .protected_build
   stage: publish
-  script:
-  - flat-manager-client commit --wait $(cat publish_build.txt)
-  - flat-manager-client publish --wait $(cat publish_build.txt)
-  - flat-manager-client purge $(cat publish_build.txt)
   needs:
   - prepare_publish
   - job: publish_x86_64
@@ -152,16 +148,17 @@ finish_publish:
   - job: publish_i686
     artifacts: false
 
+finish_publish:
+  extends:
+  - .finish_publish_base
+  script:
+  - flat-manager-client commit --wait $(cat publish_build.txt)
+  - flat-manager-client publish --wait $(cat publish_build.txt)
+  - flat-manager-client purge $(cat publish_build.txt)
+
 finish_publish_failed:
   extends:
-  - .protected_build
-  stage: publish
+  - .finish_publish_base
   script:
   - flat-manager-client purge $(cat publish_build.txt)
   when: on_failure
-  needs:
-  - prepare_publish
-  - job: publish_x86_64
-    artifacts: false
-  - job: publish_i686
-    artifacts: false
