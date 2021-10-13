@@ -8,9 +8,9 @@ build-depends:
 config:
   include:
   - runtime
-  - devel
   exclude:
   - debug
+  - devel
   directory: "%{prefix}"
   metadata:
     Runtime:
