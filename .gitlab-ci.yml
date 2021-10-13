@@ -13,9 +13,7 @@ default:
 
 stages:
 - build
-- prepare-publish
 - publish
-- finish-publish
 
 before_script:
   - |
@@ -102,7 +100,7 @@ build_i686:
 prepare_publish:
   extends:
   - .protected_build
-  stage: prepare-publish
+  stage: publish
   script:
   - flat-manager-client create https://hub.flathub.org/ "${RELEASE_CHANNEL}" > publish_build.txt
   artifacts:
@@ -117,7 +115,7 @@ prepare_publish:
   - make export-repo RELEASE_KIND=${RELEASE_CHANNEL} REPO=repo
   - flatpak build-update-repo --generate-static-deltas --prune repo
   - flat-manager-client push $(cat publish_build.txt) repo
-  dependencies:
+  needs:
   - prepare_publish
   artifacts:
     when: always
@@ -142,20 +140,28 @@ publish_i686:
 finish_publish:
   extends:
   - .protected_build
-  stage: finish-publish
+  stage: publish
   script:
   - flat-manager-client commit --wait $(cat publish_build.txt)
   - flat-manager-client publish --wait $(cat publish_build.txt)
   - flat-manager-client purge $(cat publish_build.txt)
-  dependencies:
+  needs:
   - prepare_publish
+  - job: publish_x86_64
+    artifacts: false
+  - job: publish_i686
+    artifacts: false
 
 finish_publish_failed:
   extends:
   - .protected_build
-  stage: finish-publish
+  stage: publish
   script:
   - flat-manager-client purge $(cat publish_build.txt)
   when: on_failure
-  dependencies:
+  needs:
   - prepare_publish
+  - job: publish_x86_64
+    artifacts: false
+  - job: publish_i686
+    artifacts: false
