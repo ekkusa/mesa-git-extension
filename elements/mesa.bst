@@ -56,9 +56,9 @@ variables:
       enable_libunwind: 'false'
 
   optimize-debug: "false"
-  app-id: org.freedesktop.Platform.GL.mesa-git
-  appstream-xml: "%{app-id}.appdata.xml"
-
+  app-id: >-
+    org.freedesktop.Platform.GL.mesa-git
+    org.freedesktop.Platform.GL32.mesa-git
 
   meson-local: >-
     -Db_ndebug=true
@@ -93,22 +93,22 @@ variables:
     -Dmicrosoft-clc=disabled
 
 config:
-  build-commands:
-    (>):
-    - |
-      set -e
-      CURRENT_REF=$(git describe --match *branchpoint*)
-      TIMESTAMP=$(git log -1 --format="%at" ${CURRENT_REF})
-      VERSION_DATE=$(date -d @"$TIMESTAMP" -Idate)
-      m4 -D__VERSION__=${CURRENT_REF} -D__VERSION_DATE__=${VERSION_DATE} \
-      %{appstream-xml}.in > %{appstream-xml}
-
   install-commands:
     (>):
     - |
-      mkdir -p %{install-root}%{datadir}/appdata
-      install %{appstream-xml} %{install-root}%{datadir}/appdata
-      appstream-compose --basename=%{app-id} --prefix=%{install-root}%{prefix} \
+      set -e
+      dest_dir=%{install-root}%{datadir}/appdata
+      mkdir -p ${dest_dir}
+      CURRENT_REF=$(git describe --match *branchpoint*)
+      TIMESTAMP=$(git log -1 --format="%at" ${CURRENT_REF})
+      VERSION_DATE=$(date -d @"$TIMESTAMP" -Idate)
+      for app_id in %{app-id}
+      do
+        m4 -D__VERSION__=${CURRENT_REF} -D__VERSION_DATE__=${VERSION_DATE} \
+        -D__APP_ID__=${app_id} \
+        appdata.template > ${dest_dir}/${app_id}.appdata.xml
+      done
+      appstream-compose --prefix=%{install-root}%{prefix} \
       --origin=flatpak %{app-id}
 
     - |
@@ -166,6 +166,6 @@ sources:
   url: freedesktop:mesa/mesa.git
   ref: main
 - kind: local
-  path: files/mesa/org.freedesktop.Platform.GL.mesa-git.appdata.xml.in
+  path: files/mesa/appdata.template
 - kind: patch
   path: patches/mesa/mesa_libdrm_deps.patch
