@@ -107,9 +107,9 @@ config:
         m4 -D__VERSION__=${CURRENT_REF} -D__VERSION_DATE__=${VERSION_DATE} \
         -D__APP_ID__=${app_id} \
         appdata.template > ${dest_dir}/${app_id}.appdata.xml
+        appstream-compose --basename ${app_id} \
+        --prefix=%{install-root}%{prefix} --origin=flatpak ${app_id}
       done
-      appstream-compose --prefix=%{install-root}%{prefix} \
-      --origin=flatpak %{app-id}
 
     - |
       mkdir -p "%{install-root}%{libdir}"
