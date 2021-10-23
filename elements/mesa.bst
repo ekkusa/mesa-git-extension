@@ -1,55 +1,59 @@
 kind: meson
 
-depends:
-- freedesktop-sdk.bst:bootstrap-import.bst
-- freedesktop-sdk.bst:components/glslang.bst
+build-depends:
+- freedesktop-sdk.bst:components/bison.bst
 - freedesktop-sdk.bst:components/m4.bst
 - freedesktop-sdk.bst:components/appstream-glib.bst
-- freedesktop-sdk.bst:components/libdrm.bst
-- freedesktop-sdk.bst:components/libglvnd.bst
-- freedesktop-sdk.bst:components/libunwind.bst
-- freedesktop-sdk.bst:components/libva.bst
-- freedesktop-sdk.bst:components/libvdpau.bst
-- freedesktop-sdk.bst:components/opencl.bst
-- freedesktop-sdk.bst:components/wayland.bst
-- freedesktop-sdk.bst:components/xorg-lib-xdamage.bst
-- freedesktop-sdk.bst:components/xorg-lib-xfixes.bst
-- freedesktop-sdk.bst:components/xorg-lib-xrandr.bst
-- freedesktop-sdk.bst:components/xorg-lib-xshmfence.bst
-- freedesktop-sdk.bst:components/xorg-lib-xxf86vm.bst
-- freedesktop-sdk.bst:extensions/mesa/libclc.bst
-- freedesktop-sdk.bst:extensions/mesa/libdrm.bst
-- freedesktop-sdk.bst:extensions/mesa/llvm.bst
-
-build-depends:
-- freedesktop-sdk.bst:public-stacks/buildsystem-meson.bst
-- freedesktop-sdk.bst:components/bison.bst
 - freedesktop-sdk.bst:components/flex.bst
 - freedesktop-sdk.bst:components/llvm.bst
 - freedesktop-sdk.bst:components/python3.bst
 - freedesktop-sdk.bst:components/python3-mako.bst
+- freedesktop-sdk.bst:components/vulkan-headers.bst
 - freedesktop-sdk.bst:components/wayland-protocols.bst
+- freedesktop-sdk.bst:components/glslang.bst
+- freedesktop-sdk.bst:components/zstd.bst
+- freedesktop-sdk.bst:public-stacks/buildsystem-meson.bst
+
+
+depends:
+- freedesktop-sdk.bst:bootstrap-import.bst
+- freedesktop-sdk.bst:components/libdrm.bst
+- freedesktop-sdk.bst:components/libva.bst
+- freedesktop-sdk.bst:components/opencl.bst
+- freedesktop-sdk.bst:components/xorg-lib-xfixes.bst
+- freedesktop-sdk.bst:components/xorg-lib-xrandr.bst
+- freedesktop-sdk.bst:components/xorg-lib-xshmfence.bst
+- freedesktop-sdk.bst:components/xorg-lib-xxf86vm.bst
+- freedesktop-sdk.bst:components/vulkan-icd-loader.bst
+- freedesktop-sdk.bst:components/wayland.bst
+- freedesktop-sdk.bst:components/libglvnd.bst
+- freedesktop-sdk.bst:components/libvdpau.bst
+- freedesktop-sdk.bst:components/libunwind-maybe.bst
+- freedesktop-sdk.bst:extensions/mesa/libclc.bst
+- freedesktop-sdk.bst:extensions/mesa/libdrm.bst
+- freedesktop-sdk.bst:extensions/mesa/llvm.bst
+
+
+(@):
+- freedesktop-sdk.bst:elements/extensions/mesa/config.yml
 
 environment:
   PKG_CONFIG_PATH: "%{libdir}/pkgconfig:%{datadir}/pkgconfig"
   CXXFLAGS: "%{target_flags} -std=gnu++17"
 
 variables:
-  lib: "lib"
-  debugdir: "/usr/lib/debug"
-
   (?):
   - target_arch == "i686" or target_arch == "x86_64":
-      gallium_drivers: iris,nouveau,r300,r600,radeonsi,svga,swrast,virgl
+      gallium_drivers: iris,crocus,nouveau,r300,r600,radeonsi,svga,swrast,virgl,zink
       dri_drivers: i915,i965,nouveau,r100,r200
-      vulkan_drivers: amd,intel
+      vulkan_drivers: amd,intel,swrast,virtio-experimental
       enable_libunwind: 'true'
   - target_arch == "arm" or target_arch == "aarch64":
-      gallium_drivers: etnaviv,freedreno,kmsro,lima,nouveau,panfrost,swrast,tegra,virgl,v3d,vc4
+      gallium_drivers: asahi,etnaviv,freedreno,kmsro,lima,nouveau,panfrost,swrast,tegra,virgl,v3d,vc4,zink
       dri_drivers: ''
-      vulkan_drivers: ''
+      vulkan_drivers: freedreno,broadcom,panfrost,swrast
       enable_libunwind: 'false'
-  - target_arch == "powerpc64le":
+  - target_arch == "ppc64le" or target_arch == "riscv64":
       gallium_drivers: nouveau,r600,r300,radeonsi,swrast,virgl
       dri_drivers: r100,r200,nouveau
       vulkan_drivers: amd
@@ -62,35 +66,37 @@ variables:
 
   meson-local: >-
     -Db_ndebug=true
-    -Ddri3=true
+    -Ddri3=enabled
     -Ddri-drivers=%{dri_drivers}
-    -Degl=true
+    -Degl=enabled
     -Dgallium-drivers=%{gallium_drivers}
     -Dgallium-nine=true
     -Dgallium-omx=disabled
     -Dgallium-opencl=icd
-    -Dgallium-va=true
-    -Dgallium-vdpau=true
-    -Dgallium-xa=false
-    -Dgallium-xvmc=false
-    -Dgbm=true
-    -Dgles1=false
-    -Dgles2=true
+    -Dgallium-va=enabled
+    -Dgallium-vdpau=enabled
+    -Dgallium-xa=disabled
+    -Dgallium-xvmc=disabled
+    -Dgbm=enabled
+    -Dgles1=disabled
+    -Dgles2=enabled
     -Dglvnd=true
     -Dglx=auto
     -Dlibunwind=%{enable_libunwind}
-    -Dllvm=true
-    -Dlmsensors=false
+    -Dllvm=enabled
+    -Dlmsensors=disabled
+    -Dmicrosoft-clc=disabled
     -Dosmesa=false
     -Dplatforms=x11,wayland
+    -Dprefer-crocus=true
     -Dselinux=false
-    -Dshared-glapi=true
-    -Dvalgrind=false
-    -Dvulkan-overlay-layer=true
+    -Dshared-glapi=enabled
+    -Dvalgrind=disabled
+    -Dvulkan-layers=device-select,overlay
     -Dvulkan-drivers=%{vulkan_drivers}
     -Dvulkan-icd-dir="%{libdir}/vulkan/icd.d"
-    -Dxlib-lease=true
-    -Dmicrosoft-clc=disabled
+    -Dxlib-lease=enabled
+    -Dzstd=enabled
 
 config:
   install-commands:
@@ -148,6 +154,7 @@ config:
       mkdir -p '%{install-root}%{prefix}/vulkan'
       ln -sr '%{install-root}%{libdir}/vulkan/icd.d' '%{install-root}%{prefix}/vulkan/icd.d'
       ln -sr '%{install-root}%{datadir}/vulkan/explicit_layer.d' '%{install-root}%{prefix}/vulkan/explicit_layer.d'
+      ln -sr '%{install-root}%{datadir}/vulkan/implicit_layer.d' '%{install-root}%{prefix}/vulkan/implicit_layer.d'
       ln -sr '%{install-root}%{libdir}/OpenCL' '%{install-root}%{prefix}/OpenCL'
 
 public:
@@ -160,6 +167,9 @@ public:
         - '%{libdir}/libwayland-egl.so'
         - '%{libdir}/libMesaOpenCL.so'
         - '%{libdir}/d3d/d3dadapter9.so'
+  cpe:
+    product: mesa
+    vendor: mesa3d
 
 sources:
 - kind: git_tag
