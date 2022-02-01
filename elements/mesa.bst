@@ -30,7 +30,7 @@ depends:
 - freedesktop-sdk.bst:components/libvdpau.bst
 - freedesktop-sdk.bst:components/libunwind-maybe.bst
 - freedesktop-sdk.bst:extensions/mesa/libclc.bst
-- freedesktop-sdk.bst:extensions/mesa/libdrm.bst
+- extensions/mesa/libdrm.bst
 - freedesktop-sdk.bst:extensions/mesa/llvm.bst
 
 
@@ -45,17 +45,14 @@ variables:
   (?):
   - target_arch == "i686" or target_arch == "x86_64":
       gallium_drivers: iris,crocus,nouveau,r300,r600,radeonsi,svga,swrast,virgl,zink
-      dri_drivers: i915,i965,nouveau,r100,r200
       vulkan_drivers: amd,intel,swrast,virtio-experimental
       enable_libunwind: 'true'
   - target_arch == "arm" or target_arch == "aarch64":
       gallium_drivers: asahi,etnaviv,freedreno,kmsro,lima,nouveau,panfrost,swrast,tegra,virgl,v3d,vc4,zink
-      dri_drivers: ''
       vulkan_drivers: freedreno,broadcom,panfrost,swrast
       enable_libunwind: 'false'
   - target_arch == "ppc64le" or target_arch == "riscv64":
       gallium_drivers: nouveau,r600,r300,radeonsi,swrast,virgl
-      dri_drivers: r100,r200,nouveau
       vulkan_drivers: amd
       enable_libunwind: 'false'
 
@@ -67,7 +64,6 @@ variables:
   meson-local: >-
     -Db_ndebug=true
     -Ddri3=enabled
-    -Ddri-drivers=%{dri_drivers}
     -Degl=enabled
     -Dgallium-drivers=%{gallium_drivers}
     -Dgallium-nine=true
@@ -88,7 +84,6 @@ variables:
     -Dmicrosoft-clc=disabled
     -Dosmesa=false
     -Dplatforms=x11,wayland
-    -Dprefer-crocus=true
     -Dselinux=false
     -Dshared-glapi=enabled
     -Dvalgrind=disabled
