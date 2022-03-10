@@ -30,7 +30,7 @@ depends:
 - freedesktop-sdk.bst:components/libvdpau.bst
 - freedesktop-sdk.bst:components/libunwind-maybe.bst
 - freedesktop-sdk.bst:extensions/mesa/libclc.bst
-- extensions/mesa/libdrm.bst
+- libdrm.bst
 - freedesktop-sdk.bst:extensions/mesa/llvm.bst
 
 
