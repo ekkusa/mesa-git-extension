@@ -28,7 +28,7 @@ depends:
 - freedesktop-sdk.bst:components/wayland.bst
 - freedesktop-sdk.bst:components/libglvnd.bst
 - freedesktop-sdk.bst:components/libvdpau.bst
-- freedesktop-sdk.bst:components/libunwind-maybe.bst
+- freedesktop-sdk.bst:components/libunwind.bst
 - freedesktop-sdk.bst:extensions/mesa/libclc.bst
 - libdrm.bst
 - freedesktop-sdk.bst:extensions/mesa/llvm.bst
