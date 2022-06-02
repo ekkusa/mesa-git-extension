@@ -1,5 +1,5 @@
 variables:
-  IMAGE_ID: '6e1e605bbe7781efd451dd0c155e85ea94adf49e'
+  IMAGE_ID: '543571583e6271ede4c706aff60d389cf26a13e9'
   # Docker Images
   DOCKER_REGISTRY: "registry.gitlab.com/freedesktop-sdk/infrastructure/freedesktop-sdk-docker-images"
 
@@ -9,7 +9,7 @@ variables:
   RELEASE_CHANNEL: beta
 
 default:
-  image: "${DOCKER_REGISTRY}/bst16:latest"
+  image: "${DOCKER_REGISTRY}/bst16:${IMAGE_ID}"
 
 stages:
 - build
@@ -204,6 +204,6 @@ track_updates:
     --overwrite
     --push
     --create_mr
-    --gitlab_project="freedesktop-sdk/freedesktop-sdk"
+    --gitlab_project="freedesktop-sdk/mesa-git-extension"
     --max_merge_requests=4
-    mesa.bst libdrm.bst
+    mesa.bst libdrm.bst freedesktop-sdk
