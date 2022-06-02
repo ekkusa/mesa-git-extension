@@ -204,6 +204,6 @@ track_updates:
     --overwrite
     --push
     --create_mr
-    --gitlab_project="freedesktop-sdk/freedesktop-sdk"
+    --gitlab_project="freedesktop-sdk/mesa-git-extension"
     --max_merge_requests=4
     mesa.bst libdrm.bst
