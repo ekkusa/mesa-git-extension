@@ -180,8 +180,6 @@ finish_publish_failed:
 track_updates:
   stage: update
   only:
-  - master
-  - /release\/.*/
   - schedules
   script:
   - git remote set-url origin "https://gitlab-ci-token:${FREEDESKTOP_API_KEY}@gitlab.com/freedesktop-sdk/mesa-git-extension.git"
