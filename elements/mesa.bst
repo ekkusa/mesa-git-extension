@@ -169,6 +169,7 @@ public:
 sources:
 - kind: git_tag
   url: freedesktop:mesa/mesa.git
+  track: main
   ref: main
 - kind: local
   path: files/mesa/appdata.template
