@@ -17,7 +17,6 @@ variables:
     -Detnaviv=true
     -Dtegra=true
     -Dudev=false
-    -Dlibkms=false
 
 public:
   bst:
@@ -30,4 +29,4 @@ sources:
 - kind: git_tag
   url: freedesktop:mesa/drm.git
   track: main
-  ref: libdrm-2.4.110-0-g56f81e6776c1c100c3f627b2c1feb9dcae2aad3c
+  ref: libdrm-2.4.111-0-gf801b07a60740425604d6563e5dc399375108bc4
