@@ -4,7 +4,7 @@ variables:
   DOCKER_REGISTRY: "registry.gitlab.com/freedesktop-sdk/infrastructure/freedesktop-sdk-docker-images"
 
   XDG_CACHE_HOME: "${CI_PROJECT_DIR}/cache"
-  BST_CACHE_SERVER_ADDRESS: 'freedesktop-sdk-cache.codethink.co.uk'
+  BST_CACHE_SERVER_ADDRESS: 'cache.freedesktop-sdk.io'
   # mesa-git-extension is only available through Flathub beta
   RELEASE_CHANNEL: beta
 
