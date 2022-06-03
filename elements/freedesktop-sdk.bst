@@ -3,11 +3,9 @@ kind: junction
 sources:
 - kind: git_tag
   url: gitlab:freedesktop-sdk/freedesktop-sdk.git
-  submodules:
-    utils/buildstream-abi-checker:
-      url: gitlab:freedesktop-sdk/buildstream-abi-checker.git
-      checkout: false
-  ref: release/21.08
+  track: release/21.08
+  track-tags: true
+  ref: freedesktop-sdk-21.08.14-0-g5def401ccfd2863c3aa38b5cd1af3aa8b991c031
 - kind: patch
   path: patches/freedesktop-sdk/patch-config-to-point-to-mesa-git.patch
 
