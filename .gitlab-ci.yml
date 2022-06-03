@@ -10,6 +10,10 @@ variables:
 
 default:
   image: "${DOCKER_REGISTRY}/bst16:${IMAGE_ID}"
+  interruptible: true
+  retry:
+    max: 2
+    when: runner_system_failure
 
 stages:
 - build
@@ -65,7 +69,6 @@ before_script:
 
 .merge_request_build:
   stage: build
-  interruptible: true
   except:
   - master
   - /^release\/.*/
@@ -119,6 +122,7 @@ prepare_publish:
 
 .publish_template:
   stage: publish
+  interruptible: false
   variables:
     DISABLE_CACHE_PUSH: 1
   script:
