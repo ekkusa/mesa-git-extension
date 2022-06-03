@@ -17,7 +17,6 @@ variables:
     -Detnaviv=true
     -Dtegra=true
     -Dudev=false
-    -Dlibkms=false
 
 public:
   bst:
