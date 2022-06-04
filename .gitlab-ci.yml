@@ -82,14 +82,12 @@ before_script:
 .builder-x86_64:
   tags:
   - x86_64
-  - cache_x86_64
   variables:
     ARCH: x86_64
 
 .builder-i686:
   tags:
   - x86_64
-  - cache_i686
   variables:
     ARCH: i686
 
