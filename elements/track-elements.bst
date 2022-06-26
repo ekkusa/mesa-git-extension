@@ -1,6 +1,6 @@
 kind: stack
 
 depends:
-- freedesktop.sdk.bst
+- freedesktop-sdk.bst
 - mesa.bst
 - libdrm.bst
