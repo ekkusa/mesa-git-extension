@@ -14,8 +14,11 @@ depends:
 
 variables:
   meson-local: >-
-    -Detnaviv=true
-    -Dtegra=true
+    -Detnaviv=enabled
+    -Dtegra=enabled
+    -Dcairo-tests=disabled
+    -Dvalgrind=disabled
+    -Dman-pages=disabled
     -Dudev=false
 
 public:
@@ -29,4 +32,4 @@ sources:
 - kind: git_tag
   url: freedesktop:mesa/drm.git
   track: main
-  ref: libdrm-2.4.112-0-g60cf6bcef1390473419df14e3214da149dbd8f99
+  ref: libdrm-2.4.113-0-gfb5c0c301aa9b6d984ffee522775ca19ea7c7be6
