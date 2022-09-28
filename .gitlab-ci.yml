@@ -1,5 +1,5 @@
 variables:
-  IMAGE_ID: '543571583e6271ede4c706aff60d389cf26a13e9'
+  IMAGE_ID: '8c2bf842694e594bcc86226e8d937435846cf440'
   # Docker Images
   DOCKER_REGISTRY: "registry.gitlab.com/freedesktop-sdk/infrastructure/freedesktop-sdk-docker-images"
 
@@ -9,8 +9,14 @@ variables:
   RELEASE_CHANNEL: beta
 
 default:
-  image: "${DOCKER_REGISTRY}/bst16:${IMAGE_ID}"
+  image: "${DOCKER_REGISTRY}/bst2:${IMAGE_ID}"
   interruptible: true
+  after_script:
+  - rm -rf "${XDG_CACHE_HOME}/buildstream/artifacts"
+  - rm -rf "${XDG_CACHE_HOME}/buildstream/build"
+  - rm -rf "${XDG_CACHE_HOME}/buildstream/cas"
+  - rm -rf "${XDG_CACHE_HOME}/buildstream/sources"
+  - rm -rf "${CI_PROJECT_DIR}/.bst"
   retry:
     max: 2
     when: runner_system_failure
@@ -39,33 +45,42 @@ before_script:
     if [ -n "$BB_CAS_PUSH_CERT" ] && [ -n "$BB_CAS_PUSH_KEY" ]; then
       echo "$BB_CAS_PUSH_CERT" > /etc/ssl/CAS/server.crt
       echo "$BB_CAS_PUSH_KEY" > /etc/ssl/CAS/server.key
-    fi
-
-  - |
-    {
-      echo "projects:"
-      for project in mesa-git freedesktop-sdk; do
-        echo "  ${project}:"
-        echo "    artifacts:"
+      {
+        echo "artifacts:"
+        echo "  override-project-caches: true"
+        echo "  servers:"
         if [ -f /cache-certificate/server.crt ]; then
-          echo "    - url: https://local-cas-server:1102"
+          echo "  - url: https://local-cas-server:1102"
+          echo "    push: true"
+          echo "    auth:"
           echo "      client-key: /etc/ssl/CAS/server.key"
           echo "      client-cert: /etc/ssl/CAS/server.crt"
           echo "      server-cert: /cache-certificate/server.crt"
-          if [ "${DISABLE_CACHE_PUSH:+set}" != set ]; then
-            echo "      push: true"
-          fi
         fi
-        if [ -n "$GITLAB_CAS_PUSH_CERT" ] && [ -n "$GITLAB_CAS_PUSH_KEY" ]; then
-          echo "    - url: https://${BST_CACHE_SERVER_ADDRESS}:11002"
+        echo "  - url: https://${BST_CACHE_SERVER_ADDRESS}:11002"
+        echo "    push: true"
+        echo "    auth:"
+        echo "      client-key: /etc/ssl/CAS/server.key"
+        echo "      client-cert: /etc/ssl/CAS/server.crt"
+        echo "source-caches:"
+        echo "  override-project-caches: true"
+        echo "  servers:"
+        if [ -f /cache-certificate/server.crt ]; then
+          echo "  - url: https://local-cas-server:1102"
+          echo "    push: true"
+          echo "    auth:"
           echo "      client-key: /etc/ssl/CAS/server.key"
           echo "      client-cert: /etc/ssl/CAS/server.crt"
-          if [ "${DISABLE_CACHE_PUSH:+set}" != set ]; then
-            echo "      push: true"
-          fi
+          echo "      server-cert: /cache-certificate/server.crt"
         fi
-      done
-    } >> ~/.config/buildstream.conf
+        echo "  - url: https://${BST_CACHE_SERVER_ADDRESS}:11002"
+        echo "    push: true"
+        echo "    auth:"
+        echo "      client-key: /etc/ssl/CAS/server.key"
+        echo "      client-cert: /etc/ssl/CAS/server.crt"
+      } >> ~/.config/buildstream.conf
+    fi
+
 
 .merge_request_build:
   stage: build
