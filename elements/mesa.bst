@@ -72,7 +72,6 @@ variables:
     -Dgallium-va=enabled
     -Dgallium-vdpau=enabled
     -Dgallium-xa=disabled
-    -Dgallium-xvmc=disabled
     -Dgbm=enabled
     -Dgles1=disabled
     -Dgles2=enabled
