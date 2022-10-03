@@ -72,7 +72,6 @@ variables:
     -Dgallium-va=enabled
     -Dgallium-vdpau=enabled
     -Dgallium-xa=disabled
-    -Dgallium-xvmc=disabled
     -Dgbm=enabled
     -Dgles1=disabled
     -Dgles2=enabled
@@ -171,7 +170,7 @@ sources:
   url: freedesktop:mesa/mesa.git
   track: main
   track-tags: false
-  ref: 22.2-branchpoint-1914-gd5394296becfc97bc992c82d6f5d013b35b5275a
+  ref: 22.2-branchpoint-3277-g7485660d1292a4fad7f2718727200bc940d58053
 - kind: local
   path: files/mesa/appdata.template
 - kind: patch
