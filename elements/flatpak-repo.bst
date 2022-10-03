@@ -2,7 +2,9 @@ kind: flatpak_repo
 
 build-depends:
 - freedesktop-sdk.bst:components/flatpak-minimal.bst
-- mesa-extension.bst
+- filename: mesa-extension.bst
+  config:
+    flatpak-image: True
 
 (@): elements/config.yml
 
@@ -10,8 +12,7 @@ config:
   arch: "%{flatpak_arch}"
   repo-mode: archive
   branch: '%{branch}'
-  environment:
-  - components/flatpak-minimal.bst
+
   (?):
   - target_arch == 'i686':
       copy-refs:
