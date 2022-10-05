@@ -10,6 +10,6 @@ clean-repo:
 	rm -rf $(REPO)
 
 export-repo: clean-repo build
-	$(BST) artifact checkout flatpak-repo.bst $(REPO)
+	$(BST) artifact checkout flatpak-repo.bst --directory $(REPO)
 
 .PHONY: build clean-repo export
