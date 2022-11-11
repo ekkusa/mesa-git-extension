@@ -203,6 +203,7 @@ track_updates:
     --nobuild
     --overwrite
     --push
+    --bst1
     --create_mr
     --gitlab_project="freedesktop-sdk/mesa-git-extension"
     --max_merge_requests=4
