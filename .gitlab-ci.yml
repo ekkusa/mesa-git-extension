@@ -222,3 +222,5 @@ track_updates:
     --gitlab_project="freedesktop-sdk/mesa-git-extension"
     --max_merge_requests=4
     track-elements.bst
+    freedesktop-sdk.bst
+
