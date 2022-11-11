@@ -5,7 +5,7 @@ sources:
   url: gitlab:freedesktop-sdk/freedesktop-sdk.git
   track: release/22.08
   track-tags: true
-  ref: freedesktop-sdk-22.08.2.1-28-gf8596d245b361dd8e65ad0421447329c954b8259
+  ref: freedesktop-sdk-22.08.3-0-g1bc55fc2a435765db7f8d297c95d59c76bc63b7b
 - kind: patch
   path: patches/freedesktop-sdk/patch-config-to-point-to-mesa-git.patch
 
