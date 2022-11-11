@@ -1,5 +1,5 @@
 variables:
-  IMAGE_ID: '8c2bf842694e594bcc86226e8d937435846cf440'
+  IMAGE_ID: 'latest'
   # Docker Images
   DOCKER_REGISTRY: "registry.gitlab.com/freedesktop-sdk/infrastructure/freedesktop-sdk-docker-images"
 
