@@ -1,5 +1,5 @@
 kind: junction
 sources:
 - kind: tar
-  url: github_files:apache/buildstream-plugins/archive/c82665e0e9218b6b9d9568ce8edfc51f4d284f6e.tar.gz
-  ref: 6c07ef9943694d7d66096a3a2910bcfdae27e79209fdd40383c49266b4c99b89
+  url: pypi:60/51/3d043567a750461d0c9857369953395cd3ec82e62f28666edaa0b7294653/buildstream-plugins-1.95.7.tar.gz
+  ref: 80ccb46e8c281b97727eb846ca8c1bc200603a6551eb55917f1db9ed798af446
