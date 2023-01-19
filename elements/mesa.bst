@@ -171,7 +171,7 @@ sources:
   url: freedesktop:mesa/mesa.git
   track: main
   track-tags: false
-  ref: 23.0-branchpoint-79-g0886df2491b094842969cda76884ce57672baff4
+  ref: 23.0-branchpoint-275-g257bb11332bcfee56d22407e9b58ac0a98e62a51
 - kind: local
   path: files/mesa/appdata.template
 - kind: patch
