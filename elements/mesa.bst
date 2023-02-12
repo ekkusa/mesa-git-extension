@@ -42,19 +42,18 @@ environment:
   CXXFLAGS: "%{target_flags} -std=gnu++17"
 
 variables:
+  enable_libunwind: 'disabled'
   (?):
   - target_arch == "i686" or target_arch == "x86_64":
       gallium_drivers: iris,crocus,nouveau,r300,r600,radeonsi,svga,swrast,virgl,zink
       vulkan_drivers: amd,intel,swrast,virtio-experimental
-      enable_libunwind: 'true'
+      enable_libunwind: 'enabled'
   - target_arch == "arm" or target_arch == "aarch64":
       gallium_drivers: asahi,etnaviv,freedreno,kmsro,lima,nouveau,panfrost,swrast,tegra,virgl,v3d,vc4,zink
       vulkan_drivers: freedreno,broadcom,panfrost,swrast
-      enable_libunwind: 'false'
   - target_arch == "ppc64le" or target_arch == "riscv64":
       gallium_drivers: nouveau,r600,r300,radeonsi,swrast,virgl
       vulkan_drivers: amd
-      enable_libunwind: 'false'
 
   optimize-debug: "false"
   app-id: >-
@@ -171,7 +170,7 @@ sources:
   url: freedesktop:mesa/mesa.git
   track: main
   track-tags: false
-  ref: 22.3-branchpoint-2709-g28d6caad605bcb206f73c6ba11d27f4c982efa89
+  ref: 23.0-branchpoint-1315-g2a008018c18e5d0508a2506edea9be0c5b5bc0f9
 - kind: local
   path: files/mesa/appdata.template
 - kind: patch
