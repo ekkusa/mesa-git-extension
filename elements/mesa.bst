@@ -172,7 +172,7 @@ sources:
   url: freedesktop:mesa/mesa.git
   track: main
   track-tags: false
-  ref: 23.0-branchpoint-1902-gc392cdf7502089a26d94455bf29e7289d46afb35
+  ref: 23.0-branchpoint-2079-g297fda6cf13c5f1672f235c65d8b437a1c64f882
 - kind: local
   path: files/mesa/appdata.template
 - kind: patch
