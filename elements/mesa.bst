@@ -44,7 +44,7 @@ environment:
 variables:
   (?):
   - target_arch == "i686" or target_arch == "x86_64":
-      gallium_drivers: iris,crocus,nouveau,r300,r600,radeonsi,svga,swrast,virgl,zink
+      gallium_drivers: iris,crocus,nouveau,r300,r600,radeonsi,svga,swrast,virgl,zink,i915
       vulkan_drivers: amd,intel,swrast,virtio-experimental
       enable_libunwind: 'enabled'
   - target_arch == "arm" or target_arch == "aarch64":
