@@ -2,7 +2,7 @@ kind: flatpak_repo
 
 build-depends:
 - freedesktop-sdk.bst:components/flatpak-minimal.bst
-- mesa-extension.bst
+- flatpak-repo-deps.bst
 
 config:
   arch: "%{flatpak_arch}"
