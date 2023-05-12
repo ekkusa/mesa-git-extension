@@ -16,3 +16,5 @@ config:
       copy-refs:
       - src: runtime/org.freedesktop.Platform.GL.mesa-git/%{flatpak_arch}/%{branch}
         dest: runtime/org.freedesktop.Platform.GL32.mesa-git/x86_64/%{branch}
+      - src: runtime/org.freedesktop.Platform.GL.Debug.mesa-git/%{flatpak_arch}/%{branch}
+        dest: runtime/org.freedesktop.Platform.GL32.Debug.mesa-git/x86_64/%{branch}
