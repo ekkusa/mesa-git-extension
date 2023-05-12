@@ -4,8 +4,6 @@ build-depends:
 - freedesktop-sdk.bst:components/flatpak-minimal.bst
 - mesa-extension.bst
 
-(@): elements/config.yml
-
 config:
   arch: "%{flatpak_arch}"
   repo-mode: archive
