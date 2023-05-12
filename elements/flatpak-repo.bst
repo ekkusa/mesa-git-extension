@@ -6,8 +6,6 @@ build-depends:
   config:
     flatpak-image: True
 
-(@): elements/config.yml
-
 config:
   arch: "%{flatpak_arch}"
   repo-mode: archive
