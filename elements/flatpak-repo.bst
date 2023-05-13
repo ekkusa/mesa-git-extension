@@ -2,11 +2,9 @@ kind: flatpak_repo
 
 build-depends:
 - freedesktop-sdk.bst:components/flatpak-minimal.bst
-- filename: mesa-extension.bst
+- filename: flatpak-repo-deps.bst
   config:
-    flatpak-image: True
-
-(@): elements/config.yml
+    flatpak-stack: True
 
 config:
   arch: "%{flatpak_arch}"
@@ -18,3 +16,5 @@ config:
       copy-refs:
       - src: runtime/org.freedesktop.Platform.GL.mesa-git/%{flatpak_arch}/%{branch}
         dest: runtime/org.freedesktop.Platform.GL32.mesa-git/x86_64/%{branch}
+      - src: runtime/org.freedesktop.Platform.GL.Debug.mesa-git/%{flatpak_arch}/%{branch}
+        dest: runtime/org.freedesktop.Platform.GL32.Debug.mesa-git/x86_64/%{branch}
