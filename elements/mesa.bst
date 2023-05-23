@@ -175,5 +175,3 @@ sources:
   ref: 23.1-branchpoint-1792-g80b8defaf316743cf1e0a7be671b370322d9ae02
 - kind: local
   path: files/mesa/appdata.template
-- kind: patch
-  path: patches/mesa/mesa_libdrm_deps.patch
