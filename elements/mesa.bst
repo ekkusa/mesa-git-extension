@@ -46,7 +46,7 @@ variables:
   (?):
   - target_arch == "i686" or target_arch == "x86_64":
       gallium_drivers: iris,crocus,nouveau,r300,r600,radeonsi,svga,swrast,virgl,zink,i915
-      vulkan_drivers: amd,intel,swrast,virtio-experimental
+      vulkan_drivers: amd,intel,swrast,virtio
       enable_libunwind: 'enabled'
   - target_arch == "arm" or target_arch == "aarch64":
       gallium_drivers: asahi,etnaviv,freedreno,kmsro,lima,nouveau,panfrost,swrast,tegra,virgl,v3d,vc4,zink
@@ -170,8 +170,6 @@ sources:
   url: freedesktop:mesa/mesa.git
   track: main
   track-tags: false
-  ref: 23.0-branchpoint-4408-g4ac56e3e5a4e95469f0de749c1b5c69006a2bd4b
+  ref: 23.1-branchpoint-1792-g80b8defaf316743cf1e0a7be671b370322d9ae02
 - kind: local
   path: files/mesa/appdata.template
-- kind: patch
-  path: patches/mesa/mesa_libdrm_deps.patch
