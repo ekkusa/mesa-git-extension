@@ -8,13 +8,10 @@ build-depends:
 
 config:
   include:
-  - runtime
-  exclude:
   - debug
-  - devel
-  directory: "%{prefix}"
+  directory: "%{debugdir}%{prefix}"
   metadata:
     Runtime:
-      name: org.freedesktop.Platform.GL.mesa-git
+      name: org.freedesktop.Platform.GL.Debug.mesa-git
       runtime: org.freedesktop.Platform/x86_64/%{branch}
       sdk: org.freedesktop.Sdk/%{arch}/%{branch}
