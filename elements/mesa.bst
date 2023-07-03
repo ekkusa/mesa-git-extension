@@ -45,22 +45,23 @@ variables:
   (?):
   - target_arch == "i686" or target_arch == "x86_64":
       gallium_drivers: iris,crocus,nouveau,r300,r600,radeonsi,svga,swrast,virgl,zink,i915
-      vulkan_drivers: amd,intel,swrast,virtio
-      enable_libunwind: 'enabled'
+      vulkan_drivers: amd,intel,intel_hasvk,swrast,virtio
+      libunwind: enabled
   - target_arch == "arm" or target_arch == "aarch64":
-      gallium_drivers: asahi,etnaviv,freedreno,kmsro,lima,nouveau,panfrost,swrast,tegra,virgl,v3d,vc4,zink
-      vulkan_drivers: freedreno,broadcom,panfrost,swrast
-      enable_libunwind: 'disabled'
-  - target_arch == "ppc64le" or target_arch == "riscv64":
+      gallium_drivers: asahi,etnaviv,freedreno,kmsro,lima,nouveau,panfrost,swrast,tegra,virgl,v3d,vc4,zink,r600,r300,radeonsi
+      vulkan_drivers: freedreno,broadcom,panfrost,swrast,amd
+      libunwind: disabled
+  - target_arch in ("ppc64le", "ppc64", "riscv64"):
       gallium_drivers: nouveau,r600,r300,radeonsi,swrast,virgl
       vulkan_drivers: amd
-      enable_libunwind: 'disabled'
+      libunwind: disabled
 
   optimize-debug: "false"
   app-id: >-
     org.freedesktop.Platform.GL.mesa-git
     org.freedesktop.Platform.GL32.mesa-git
 
+  meson-lto-flags: ''
   meson-local: >-
     -Db_ndebug=true
     -Ddri3=enabled
@@ -77,7 +78,7 @@ variables:
     -Dgles2=enabled
     -Dglvnd=true
     -Dglx=auto
-    -Dlibunwind=%{enable_libunwind}
+    -Dlibunwind=%{libunwind}
     -Dllvm=enabled
     -Dlmsensors=disabled
     -Dmicrosoft-clc=disabled
