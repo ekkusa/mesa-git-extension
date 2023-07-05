@@ -8,6 +8,7 @@ build-depends:
 - freedesktop-sdk.bst:components/llvm.bst
 - freedesktop-sdk.bst:components/python3.bst
 - freedesktop-sdk.bst:components/python3-mako.bst
+- spirv-llvm-translator.bst
 - freedesktop-sdk.bst:components/spirv-tools.bst
 - freedesktop-sdk.bst:components/vulkan-headers.bst
 - freedesktop-sdk.bst:components/wayland-protocols.bst
