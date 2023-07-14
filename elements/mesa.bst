@@ -6,6 +6,7 @@ build-depends:
 - freedesktop-sdk.bst:components/appstream-glib.bst
 - freedesktop-sdk.bst:components/flex.bst
 - freedesktop-sdk.bst:components/llvm.bst
+- freedesktop-sdk.bst:components/spirv-llvm-translator.bst
 - freedesktop-sdk.bst:components/python3.bst
 - freedesktop-sdk.bst:components/python3-mako.bst
 - freedesktop-sdk.bst:components/spirv-tools.bst
