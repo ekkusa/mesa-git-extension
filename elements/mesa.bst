@@ -171,10 +171,10 @@ public:
     vendor: mesa3d
 
 sources:
-- kind: git_tag
+- kind: git_repo
   url: freedesktop:mesa/mesa.git
   track: main
-  track-tags: false
-  ref: 23.2.0-branchpoint-2146-g6ae2844c520b16d19f7f51650bf4b87e2d6f3749
+  ref-format: git-describe
+  ref: 23.2.0-branchpoint-3485-gdf710fe6956d2a6093473f8809b56267c3e31e5b
 - kind: local
   path: files/mesa/appdata.template
