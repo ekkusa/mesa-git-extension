@@ -50,7 +50,8 @@ variables:
       vulkan_drivers: amd,intel,intel_hasvk,swrast,virtio
       libunwind: enabled
   - target_arch == "arm" or target_arch == "aarch64":
-      gallium_drivers: asahi,etnaviv,freedreno,kmsro,lima,nouveau,panfrost,swrast,tegra,virgl,v3d,vc4,zink,r600,r300,radeonsi
+      gallium_drivers: 
+        asahi,etnaviv,freedreno,kmsro,lima,nouveau,panfrost,swrast,tegra,virgl,v3d,vc4,zink,r600,r300,radeonsi
       vulkan_drivers: freedreno,broadcom,panfrost,swrast,amd
       libunwind: disabled
   - target_arch in ("ppc64le", "ppc64", "riscv64"):
@@ -175,6 +176,6 @@ sources:
   url: freedesktop:mesa/mesa.git
   track: main
   ref-format: git-describe
-  ref: 23.2.0-branchpoint-3485-gdf710fe6956d2a6093473f8809b56267c3e31e5b
+  ref: 23.2.0-branchpoint-3792-g3c4c263dc734ec75f72d36b1d0d1a9cd41310112
 - kind: local
   path: files/mesa/appdata.template
