@@ -126,7 +126,7 @@ prepare_publish:
   - .protected_build
   stage: publish
   script:
-  - flat-manager-client create https://hub.flathub.org/ "${RELEASE_CHANNEL}" > publish_build.txt
+  - flat-manager-client create https://hub.flathub.org/ "${RELEASE_CHANNEL}" --build-log-url ${CI_PIPELINE_URL} > publish_build.txt
   except:
   - schedules
   artifacts:
@@ -140,8 +140,8 @@ prepare_publish:
     DISABLE_CACHE_PUSH: 1
   script:
   - make export-repo RELEASE_KIND=${RELEASE_CHANNEL} REPO=repo
-  - flatpak build-update-repo --prune repo
-  - flat-manager-client push $(cat publish_build.txt) repo
+  - flatpak build-update-repo repo
+  - flat-manager-client push $(cat publish_build.txt) repo --build-log-url ${CI_PIPELINE_URL}
   needs:
   - prepare_publish
   artifacts:
