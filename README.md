@@ -15,12 +15,12 @@ You will also need to have ostree, make, and the usual assortment of development
 git clone https://gitlab.com/freedesktop-sdk/mesa-git-extension.git
 cd mesa-git-extension
 
-# Checkout the branch of the version you want to build (22.08 in this example)
-git checkout release/22.08
+# Checkout the branch of the version you want to build (23.08 in this example)
+git checkout release/23.08
 
 # Build Flatpak runtimes for x86_64 and i686 architectures
-make export-repo ARCH=x86_64 REPO=repo/22.08/x86_64
-make export-repo ARCH=i686 REPO=repo/22.08/i686
+make export-repo ARCH=x86_64 REPO=repo
+make export-repo ARCH=i686 REPO=repo
 ```
 
 ### Installing
@@ -30,8 +30,8 @@ make export-repo ARCH=i686 REPO=repo/22.08/i686
 flatpak uninstall org.freedesktop.Platform.GL.mesa-git org.freedesktop.Platform.GL32.mesa-git
 
 # Install for both the x86_64 and i686 architectures
-flatpak install ./repo/22.08/x86_64 org.freedesktop.Platform.GL.mesa-git
-flatpak install ./repo/22.08/i686 org.freedesktop.Platform.GL32.mesa-git
+flatpak install ./repo org.freedesktop.Platform.GL.mesa-git
+flatpak install ./repo org.freedesktop.Platform.GL32.mesa-git
 ```
 
 ### Usage
