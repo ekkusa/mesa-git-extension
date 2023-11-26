@@ -8,16 +8,6 @@ If you want to test your changes locally, then you will need to first install [B
 
 You will also need to have ostree, make, and the usual assortment of development tools installed.
 
-#### For runtimes version 22.08 and earlier
-Up to freedesktop-sdk 22.08 we used BuildStream 1.6, so this older version must be installed if building for these runtimes.
-
-With BuildStream 1.6, we also used some plugins from the [bst-external](https://gitlab.com/BuildStream/bst-external) repository. To install these, run the following commands:
-```
-git clone https://gitlab.com/BuildStream/bst-external.git
-pip3 install --user -e ./bst-external
-```
-We use the latest stable version of bst-external, which is usually the latest release.
-
 ### Building
 
 ```shell
