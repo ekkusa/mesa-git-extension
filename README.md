@@ -40,3 +40,20 @@ To use the mesa-git extension, you must set the environment variable `FLATPAK_GL
 ```shell
 FLATPAK_GL_DRIVERS=mesa-git flatpak run APP_ID
 ```
+
+### Hacking
+If you need to build this extension from some other commit or repo, feel free to locally edit elements/mesa.bst sources section
+which looks something like
+```
+sources:
+- kind: git_repo
+  url: freedesktop:mesa/mesa.git
+  track: main
+  ref-format: git-describe
+  ref: 23.3-branchpoint-567-g054188bff821f490b157dc0a4740d72793b97212
+- kind: local
+  path: files/mesa/appdata.template
+```
+ref can be replaced by git commit id manually. You can also use
+[patch source](https://buildstream.gitlab.io/buildstream/sources/patch.html)
+to apply local patches. Same file also allows you to arbitrarily modify Meson options for built Mesa.
