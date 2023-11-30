@@ -48,16 +48,16 @@ variables:
   (?):
   - target_arch == "i686" or target_arch == "x86_64":
       gallium_drivers: iris,crocus,nouveau,r300,r600,radeonsi,svga,swrast,virgl,zink,i915
-      vulkan_drivers: amd,intel,intel_hasvk,swrast,virtio,nouveau-experimental
+      vulkan_drivers: amd,intel,intel_hasvk,swrast,virtio
       libunwind: enabled
   - target_arch == "arm" or target_arch == "aarch64":
       gallium_drivers: 
         asahi,etnaviv,freedreno,kmsro,lima,nouveau,panfrost,swrast,tegra,virgl,v3d,vc4,zink,r600,r300,radeonsi
-      vulkan_drivers: freedreno,broadcom,panfrost,swrast,amd,nouveau-experimental
+      vulkan_drivers: freedreno,broadcom,panfrost,swrast,amd
       libunwind: disabled
   - target_arch in ("ppc64le", "ppc64", "riscv64"):
       gallium_drivers: nouveau,r600,r300,radeonsi,swrast,virgl
-      vulkan_drivers: amd,nouveau-experimental
+      vulkan_drivers: amd
       libunwind: disabled
 
   optimize-debug: "false"
