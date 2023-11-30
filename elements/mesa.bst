@@ -1,26 +1,32 @@
 kind: meson
 
 build-depends:
-- freedesktop-sdk.bst:components/bison.bst
-- freedesktop-sdk.bst:components/m4.bst
+- freedesktop-sdk.bst:public-stacks/buildsystem-meson.bst
 - freedesktop-sdk.bst:components/appstream-glib.bst
+- freedesktop-sdk.bst:components/bison.bst
 - freedesktop-sdk.bst:components/flex.bst
+- freedesktop-sdk.bst:components/glslang.bst
 - freedesktop-sdk.bst:components/llvm.bst
+- freedesktop-sdk.bst:components/m4.bst
 - freedesktop-sdk.bst:components/spirv-llvm-translator.bst
 - freedesktop-sdk.bst:components/python3.bst
 - freedesktop-sdk.bst:components/python3-mako.bst
+- freedesktop-sdk.bst:components/rust.bst
 - freedesktop-sdk.bst:components/spirv-tools.bst
 - freedesktop-sdk.bst:components/vulkan-headers.bst
 - freedesktop-sdk.bst:components/wayland-protocols.bst
-- freedesktop-sdk.bst:components/glslang.bst
 - freedesktop-sdk.bst:components/zstd.bst
-- freedesktop-sdk.bst:public-stacks/buildsystem-meson.bst
 
 
 depends:
 - freedesktop-sdk.bst:bootstrap-import.bst
+- freedesktop-sdk.bst:extensions/mesa/llvm.bst
+- freedesktop-sdk.bst:extensions/mesa/libclc.bst
 - freedesktop-sdk.bst:components/libdrm.bst
+- freedesktop-sdk.bst:components/libglvnd.bst
+- freedesktop-sdk.bst:components/libunwind.bst
 - freedesktop-sdk.bst:components/libva.bst
+- freedesktop-sdk.bst:components/libvdpau.bst
 - freedesktop-sdk.bst:components/opencl.bst
 - freedesktop-sdk.bst:components/xorg-lib-xfixes.bst
 - freedesktop-sdk.bst:components/xorg-lib-xrandr.bst
@@ -28,12 +34,7 @@ depends:
 - freedesktop-sdk.bst:components/xorg-lib-xxf86vm.bst
 - freedesktop-sdk.bst:components/vulkan-icd-loader.bst
 - freedesktop-sdk.bst:components/wayland.bst
-- freedesktop-sdk.bst:components/libglvnd.bst
-- freedesktop-sdk.bst:components/libvdpau.bst
-- freedesktop-sdk.bst:components/libunwind.bst
-- freedesktop-sdk.bst:extensions/mesa/libclc.bst
 - libdrm.bst
-- freedesktop-sdk.bst:extensions/mesa/llvm.bst
 
 
 (@):
@@ -47,16 +48,16 @@ variables:
   (?):
   - target_arch == "i686" or target_arch == "x86_64":
       gallium_drivers: iris,crocus,nouveau,r300,r600,radeonsi,svga,swrast,virgl,zink,i915
-      vulkan_drivers: amd,intel,intel_hasvk,swrast,virtio,nouveau-experimental
+      vulkan_drivers: amd,intel,intel_hasvk,swrast,virtio
       libunwind: enabled
   - target_arch == "arm" or target_arch == "aarch64":
       gallium_drivers: 
         asahi,etnaviv,freedreno,kmsro,lima,nouveau,panfrost,swrast,tegra,virgl,v3d,vc4,zink,r600,r300,radeonsi
-      vulkan_drivers: freedreno,broadcom,panfrost,swrast,amd,nouveau-experimental
+      vulkan_drivers: freedreno,broadcom,panfrost,swrast,amd
       libunwind: disabled
   - target_arch in ("ppc64le", "ppc64", "riscv64"):
       gallium_drivers: nouveau,r600,r300,radeonsi,swrast,virgl
-      vulkan_drivers: amd,nouveau-experimental
+      vulkan_drivers: amd
       libunwind: disabled
 
   optimize-debug: "false"
@@ -176,6 +177,6 @@ sources:
   url: freedesktop:mesa/mesa.git
   track: main
   ref-format: git-describe
-  ref: 23.3-branchpoint-567-g054188bff821f490b157dc0a4740d72793b97212
+  ref: 23.3-branchpoint-1739-gfc30a29bd611c8389dec8bfaccc7f1b9d4ad2b94
 - kind: local
   path: files/mesa/appdata.template
