@@ -99,6 +99,16 @@ variables:
     -Dvideo-codecs=h264dec,h264enc,h265dec,h265enc,vc1dec
 
 config:
+
+  # Replicate meson subprojects download without internet.
+  configure-commands:
+  - |
+    cp subprojects/packagefiles/syn/* subprojects/syn-2.0.39
+    cp subprojects/packagefiles/unicode-ident/* subprojects/unicode-ident-1.0.12
+    cp subprojects/packagefiles/quote/* subprojects/quote-1.0.33
+    cp subprojects/packagefiles/proc-macro2/* subprojects/proc-macro2-1.0.70
+    %{meson}
+
   install-commands:
     (>):
     - |
@@ -179,3 +189,20 @@ sources:
   ref: 24.0-branchpoint-949-geb4effeead405cc388d310c322a044757afd8fc6
 - kind: local
   path: files/mesa/appdata.template
+# Rust dependencies:
+- kind: tar
+  directory: subprojects/syn-2.0.39
+  url: https://crates.io/api/v1/crates/syn/2.0.39/download
+  ref: 23e78b90f2fcf45d3e842032ce32e3f2d1545ba6636271dcbf24fa306d87be7a
+- kind: tar
+  directory: subprojects/unicode-ident-1.0.12
+  url: https://crates.io/api/v1/crates/unicode-ident/1.0.12/download
+  ref: 3354b9ac3fae1ff6755cb6db53683adb661634f67557942dea4facebec0fee4b
+- kind: tar
+  directory: subprojects/proc-macro2-1.0.70
+  url: https://crates.io/api/v1/crates/proc-macro2/1.0.70/download
+  ref: 39278fbbf5fb4f646ce651690877f89d1c5811a3d4acb27700c1cb3cdb78fd3b
+- kind: tar
+  directory: subprojects/quote-1.0.33
+  url: https://crates.io/api/v1/crates/quote/1.0.33/download
+  ref: 5267fca4496028628a95160fc423a33e8b2e6af8a5302579e322e4b520293cae
