@@ -8,6 +8,8 @@ sources:
   ref: freedesktop-sdk-23.08rc.2-704-gf6d2815ddbd13854085437ab1009296aa7ba5d34
 - kind: patch
   path: patches/freedesktop-sdk/patch-config-to-point-to-mesa-git.patch
+- kind: patch
+  path: patches/freedesktop-sdk/patch-meson-use-newer.patch
 
 config:
   options:
