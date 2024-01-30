@@ -12,6 +12,7 @@ build-depends:
 - freedesktop-sdk.bst:components/python3.bst
 - freedesktop-sdk.bst:components/python3-mako.bst
 - freedesktop-sdk.bst:components/rust.bst
+- freedesktop-sdk.bst:components/rust-bindgen.bst
 - freedesktop-sdk.bst:components/spirv-tools.bst
 - freedesktop-sdk.bst:components/vulkan-headers.bst
 - freedesktop-sdk.bst:components/wayland-protocols.bst
