@@ -49,7 +49,7 @@ variables:
   (?):
   - target_arch == "i686" or target_arch == "x86_64":
       gallium_drivers: iris,crocus,nouveau,r300,r600,radeonsi,svga,swrast,virgl,zink,i915
-      vulkan_drivers: amd,intel,intel_hasvk,swrast,virtio
+      vulkan_drivers: amd,intel,intel_hasvk,swrast,virtio,nouveau-experimental
       libunwind: enabled
   - target_arch == "arm" or target_arch == "aarch64":
       gallium_drivers: 
