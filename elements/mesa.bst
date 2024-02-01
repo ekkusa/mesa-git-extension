@@ -104,12 +104,12 @@ config:
 
   # Replicate meson subprojects download without internet.
   configure-commands:
-  - |
-    cp subprojects/packagefiles/syn/* subprojects/syn-2.0.39
-    cp subprojects/packagefiles/unicode-ident/* subprojects/unicode-ident-1.0.12
-    cp subprojects/packagefiles/quote/* subprojects/quote-1.0.33
-    cp subprojects/packagefiles/proc-macro2/* subprojects/proc-macro2-1.0.70
-    %{meson}
+    (<):
+    - |
+      cp subprojects/packagefiles/syn/* subprojects/syn-2.0.39
+      cp subprojects/packagefiles/unicode-ident/* subprojects/unicode-ident-1.0.12
+      cp subprojects/packagefiles/quote/* subprojects/quote-1.0.33
+      cp subprojects/packagefiles/proc-macro2/* subprojects/proc-macro2-1.0.70
 
   install-commands:
     (>):
