@@ -8,6 +8,9 @@ variables:
   # mesa-git-extension is only available through Flathub beta
   RELEASE_CHANNEL: beta
 
+  BUILD_TASKS: 2
+  BUILD_CPU_MULTIPLIER: 2
+
 default:
   image: "${DOCKER_REGISTRY}/bst2:${IMAGE_ID}"
   interruptible: true
@@ -39,6 +42,30 @@ before_script:
 
   - mkdir -p ~/.config
   - mkdir -p /etc/ssl/CAS
+
+  # Configure Buildstream
+  - |
+    MAX_JOBS=$(python -c "print(round(($(nproc) * ${BUILD_CPU_MULTIPLIER}) / ${BUILD_TASKS}))")
+
+    mkdir -p ~/.config
+    cat > ~/.config/buildstream.conf << EOF
+    # Get a lot of output in case of errors
+    logging:
+      message-format: '[%{wallclock}][%{elapsed}][%{key}][%{element}] %{action} %{message}'
+      error-lines: 80
+    # Force higher parallelity
+    build:
+      max-jobs: ${MAX_JOBS}
+      retry-failed: True
+    scheduler:
+      builders: ${BUILD_TASKS}
+      network-retries: 4
+      on-error: continue
+    track:
+      # Because we want tracking to succeed even if origin disappears
+      source: all
+    EOF
+
 
   # Private SSL keys/certs for pushing to the CAS server
   - |
