@@ -85,8 +85,8 @@ before_script:
 .merge_request_build:
   stage: build
   except:
-  - master
-  - /^release\/.*/
+  - master@freedesktop-sdk/mesa-git-extension
+  - /^release\/.*/@freedesktop-sdk/mesa-git-extension
   script:
   -  make build ARCH=${ARCH}
   artifacts:
@@ -118,8 +118,8 @@ build_i686:
 
 .protected_build:
   only:
-  - master
-  - /release\/.*/ 
+  - master@freedesktop-sdk/mesa-git-extension
+  - /release\/.*/@freedesktop-sdk/mesa-git-extension
 
 prepare_publish:
   extends:
