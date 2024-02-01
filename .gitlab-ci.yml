@@ -148,9 +148,6 @@ prepare_publish:
     when: always
     paths:
     - ${CI_PROJECT_DIR}/cache/buildstream/logs
-  only:
-  - master
-  - /release\/.*/
   except:
   - schedules
 
