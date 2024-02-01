@@ -1,7 +1,13 @@
 kind: meson
 
 build-depends:
-- freedesktop-sdk.bst:public-stacks/buildsystem-meson.bst
+# Extract from buildsystem-meson.bst
+- freedesktop-sdk.bst:components/gettext.bst
+- freedesktop-sdk.bst:components/git-minimal.bst
+- meson.bst  # We need Meson 1.3.1 or newer
+- freedesktop-sdk.bst:components/ninja.bst
+- freedesktop-sdk.bst:components/pkg-config.bst
+# Extract ends
 - freedesktop-sdk.bst:components/appstream-glib.bst
 - freedesktop-sdk.bst:components/bison.bst
 - freedesktop-sdk.bst:components/flex.bst
@@ -17,7 +23,6 @@ build-depends:
 - freedesktop-sdk.bst:components/vulkan-headers.bst
 - freedesktop-sdk.bst:components/wayland-protocols.bst
 - freedesktop-sdk.bst:components/zstd.bst
-
 
 depends:
 - freedesktop-sdk.bst:bootstrap-import.bst
