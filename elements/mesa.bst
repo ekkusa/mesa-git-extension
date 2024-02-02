@@ -194,7 +194,7 @@ sources:
   url: freedesktop:mesa/mesa.git
   track: main
   ref-format: git-describe
-  ref: 24.0-branchpoint-949-geb4effeead405cc388d310c322a044757afd8fc6
+  ref: 24.0-branchpoint-1017-g2085d6043804c316939ac47d6b334007872655b7
 - kind: local
   path: files/mesa/appdata.template
 # Rust dependencies:
