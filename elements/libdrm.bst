@@ -31,6 +31,5 @@ public:
 sources:
 - kind: git_repo
   url: freedesktop:mesa/drm.git
-  track: main
-  ref-format: git-describe
-  ref: libdrm-2.4.120-6-g140943281ba1fc2bd6a1140d4c26c7595c0d6abf
+  track: libdrm-*
+  ref: libdrm-2.4.120-0-g75254bf2390c10644ffb35a90fc8f18f196f9f0c
