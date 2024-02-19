@@ -17,6 +17,7 @@ build-depends:
 - freedesktop-sdk.bst:components/vulkan-headers.bst
 - freedesktop-sdk.bst:components/wayland-protocols.bst
 - freedesktop-sdk.bst:components/zstd.bst
+- python3-ply.bst
 
 
 depends:
