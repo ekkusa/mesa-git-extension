@@ -49,7 +49,7 @@ variables:
   (?):
   - target_arch == "i686" or target_arch == "x86_64":
       gallium_drivers: iris,crocus,nouveau,r300,r600,radeonsi,svga,swrast,virgl,zink,i915
-      vulkan_drivers: amd,intel,intel_hasvk,swrast,virtio,nouveau-experimental
+      vulkan_drivers: amd,intel,intel_hasvk,swrast,virtio,nouveau
       libunwind: enabled
   - target_arch == "arm" or target_arch == "aarch64":
       gallium_drivers: 
@@ -188,7 +188,7 @@ sources:
 - kind: git_repo
   url: freedesktop:mesa/mesa.git
   track: main
-  ref: 24.0-branchpoint-1099-ge48645250c6fd0f021878a2f50bf028f61cf50ad
+  ref: 24.0-branchpoint-2865-g7ea5d1ed7dd883cefe3ab489740616cdfb90dcca
 - kind: local
   path: files/mesa/appdata.template
 # Rust dependencies:
