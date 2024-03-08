@@ -4,7 +4,7 @@ variables:
   DOCKER_REGISTRY: "registry.gitlab.com/freedesktop-sdk/infrastructure/freedesktop-sdk-docker-images"
 
   XDG_CACHE_HOME: "${CI_PROJECT_DIR}/cache"
-  BST_CACHE_SERVER_ADDRESS: 'cache.freedesktop-sdk.io'
+  REMOTE_CAS: 'cache.freedesktop-sdk.io'
   # mesa-git-extension is only available through Flathub beta
   RELEASE_CHANNEL: beta
 
@@ -40,73 +40,21 @@ before_script:
   - |
     export REPO_TOKEN="${FLATHUB_REPO_TOKEN_BETA}"
 
-  - mkdir -p ~/.config
-  - mkdir -p /etc/ssl/CAS
-
-  # Configure Buildstream
+  # Create CAS directory for SSL keys
   - |
-    MAX_JOBS=$(python -c "print(round(($(nproc) * ${BUILD_CPU_MULTIPLIER}) / ${BUILD_TASKS}))")
-
-    mkdir -p ~/.config
-    cat > ~/.config/buildstream.conf << EOF
-    # Get a lot of output in case of errors
-    logging:
-      message-format: '[%{wallclock}][%{elapsed}][%{key}][%{element}] %{action} %{message}'
-      error-lines: 80
-    # Force higher parallelity
-    build:
-      max-jobs: ${MAX_JOBS}
-      retry-failed: True
-    scheduler:
-      builders: ${BUILD_TASKS}
-      network-retries: 4
-      on-error: continue
-    track:
-      # Because we want tracking to succeed even if origin disappears
-      source: all
-    EOF
-
+    mkdir -p /etc/ssl/CAS
+    echo "$BB_CAS_PUSH_CERT" > /etc/ssl/CAS/server.crt
+    echo "$BB_CAS_PUSH_KEY" > /etc/ssl/CAS/server.key
 
   # Private SSL keys/certs for pushing to the CAS server
   - |
-    if [ -n "$BB_CAS_PUSH_CERT" ] && [ -n "$BB_CAS_PUSH_KEY" ]; then
-      echo "$BB_CAS_PUSH_CERT" > /etc/ssl/CAS/server.crt
-      echo "$BB_CAS_PUSH_KEY" > /etc/ssl/CAS/server.key
-      {
-        echo "artifacts:"
-        echo "  override-project-caches: true"
-        echo "  servers:"
-        if [ -f /cache-certificate/server.crt ]; then
-          echo "  - url: https://local-cas-server:1102"
-          echo "    push: true"
-          echo "    auth:"
-          echo "      client-key: /etc/ssl/CAS/server.key"
-          echo "      client-cert: /etc/ssl/CAS/server.crt"
-          echo "      server-cert: /cache-certificate/server.crt"
-        fi
-        echo "  - url: https://${BST_CACHE_SERVER_ADDRESS}:11002"
-        echo "    push: true"
-        echo "    auth:"
-        echo "      client-key: /etc/ssl/CAS/server.key"
-        echo "      client-cert: /etc/ssl/CAS/server.crt"
-        echo "source-caches:"
-        echo "  override-project-caches: true"
-        echo "  servers:"
-        if [ -f /cache-certificate/server.crt ]; then
-          echo "  - url: https://local-cas-server:1102"
-          echo "    push: true"
-          echo "    auth:"
-          echo "      client-key: /etc/ssl/CAS/server.key"
-          echo "      client-cert: /etc/ssl/CAS/server.crt"
-          echo "      server-cert: /cache-certificate/server.crt"
-        fi
-        echo "  - url: https://${BST_CACHE_SERVER_ADDRESS}:11002"
-        echo "    push: true"
-        echo "    auth:"
-        echo "      client-key: /etc/ssl/CAS/server.key"
-        echo "      client-cert: /etc/ssl/CAS/server.crt"
-      } >> ~/.config/buildstream.conf
-    fi
+    # Force higher parallelity
+    MAX_JOBS=$(python -c "print(round(($(nproc) * ${BUILD_CPU_MULTIPLIER}) / ${BUILD_TASKS}))")
+    [ -d ~/.config ] || mkdir -p ~/.config
+    [ -f /cache-certificate/server.crt ] && LOCAL_CAS=true
+    python3 -mmako.cmd templates/buildstream.conf \
+      --var MAX_JOBS=${MAX_JOBS} --var REMOTE_CAS=${REMOTE_CAS} \
+      --var LOCAL_CAS=${LOCAL_CAS} --output-file ~/.config/buildstream.conf
 
 
 .merge_request_build:
