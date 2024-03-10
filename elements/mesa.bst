@@ -46,6 +46,8 @@ environment:
   CXXFLAGS: "%{target_flags} -std=gnu++17"
 
 variables:
+  intel-clc: "disabled"
+
   (?):
   - target_arch == "i686" or target_arch == "x86_64":
       gallium_drivers: iris,crocus,nouveau,r300,r600,radeonsi,svga,swrast,virgl,zink,i915
@@ -100,6 +102,7 @@ variables:
     -Dzstd=enabled
     -Dandroid-libbacktrace=disabled
     -Dvideo-codecs=h264dec,h264enc,h265dec,h265enc,vc1dec
+    -Dintel-clc=%{intel-clc}
 
 config:
 
