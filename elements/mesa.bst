@@ -58,7 +58,7 @@ variables:
       libunwind: enabled
   - target_arch == "arm" or target_arch == "aarch64":
       gallium_drivers: 
-        asahi,etnaviv,freedreno,kmsro,lima,nouveau,panfrost,swrast,tegra,virgl,v3d,vc4,zink,r600,r300,radeonsi
+        etnaviv,freedreno,kmsro,lima,nouveau,panfrost,swrast,tegra,virgl,v3d,vc4,zink,r600,r300,radeonsi
       vulkan_drivers: freedreno,broadcom,panfrost,swrast,amd
       libunwind: disabled
   - target_arch in ("ppc64le", "ppc64", "riscv64"):
