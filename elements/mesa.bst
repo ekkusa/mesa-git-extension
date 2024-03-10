@@ -17,7 +17,6 @@ build-depends:
 - freedesktop-sdk.bst:components/vulkan-headers.bst
 - freedesktop-sdk.bst:components/wayland-protocols.bst
 - freedesktop-sdk.bst:components/zstd.bst
-- python3-ply.bst
 
 
 depends:
@@ -47,10 +46,12 @@ environment:
   CXXFLAGS: "%{target_flags} -std=gnu++17"
 
 variables:
+  intel-clc: "disabled"
+
   (?):
   - target_arch == "i686" or target_arch == "x86_64":
       gallium_drivers: iris,crocus,nouveau,r300,r600,radeonsi,svga,swrast,virgl,zink,i915
-      vulkan_drivers: amd,intel,intel_hasvk,swrast,virtio,nouveau
+      vulkan_drivers: amd,intel,intel_hasvk,swrast,virtio,nouveau-experimental
       libunwind: enabled
   - target_arch == "arm" or target_arch == "aarch64":
       gallium_drivers: 
@@ -101,6 +102,7 @@ variables:
     -Dzstd=enabled
     -Dandroid-libbacktrace=disabled
     -Dvideo-codecs=h264dec,h264enc,h265dec,h265enc,vc1dec
+    -Dintel-clc=%{intel-clc}
 
 config:
 
@@ -189,7 +191,7 @@ sources:
 - kind: git_repo
   url: freedesktop:mesa/mesa.git
   track: main
-  ref: 24.0-branchpoint-2865-g7ea5d1ed7dd883cefe3ab489740616cdfb90dcca
+  ref: 24.0-branchpoint-1099-ge48645250c6fd0f021878a2f50bf028f61cf50ad
 - kind: local
   path: files/mesa/appdata.template
 # Rust dependencies:
