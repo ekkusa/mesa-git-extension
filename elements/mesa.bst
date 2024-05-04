@@ -54,14 +54,17 @@ variables:
       gallium_drivers: iris,crocus,nouveau,r300,r600,radeonsi,svga,swrast,virgl,zink,i915
       vulkan_drivers: amd,intel,intel_hasvk,swrast,virtio
       libunwind: enabled
+      intel-rt: enabled
   - target_arch == "arm" or target_arch == "aarch64":
       gallium_drivers: asahi,etnaviv,freedreno,kmsro,lima,nouveau,panfrost,swrast,tegra,virgl,v3d,vc4,zink,r600,r300,radeonsi
       vulkan_drivers: freedreno,broadcom,panfrost,swrast,amd
       libunwind: disabled
+      intel-rt: disabled
   - target_arch in ("ppc64le", "ppc64", "riscv64"):
       gallium_drivers: nouveau,r600,r300,radeonsi,swrast,virgl
       vulkan_drivers: amd
       libunwind: disabled
+      intel-rt: disabled
 
   optimize-debug: "false"
   app-id: >-
@@ -104,6 +107,7 @@ variables:
     -Dvideo-codecs=h264dec,h264enc,h265dec,h265enc,vc1dec
     -Dintel-clc=%{intel-clc}
     -Drust_std=2021
+    -Dintel-rt=%{intel-rt}
 
 config:
 
@@ -193,6 +197,8 @@ sources:
   url: freedesktop:mesa/mesa.git
   track: main
   ref: 24.0-branchpoint-3011-g493d5764e3e672ae86939dcaa918f844fcf5e0e4
+- kind: patch
+  path: patches/mesa/clang_res_path.patch
 - kind: local
   path: files/mesa/appdata.template
 # Rust dependencies:
