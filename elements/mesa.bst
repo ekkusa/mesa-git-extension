@@ -17,7 +17,7 @@ build-depends:
 - freedesktop-sdk.bst:components/vulkan-headers.bst
 - freedesktop-sdk.bst:components/wayland-protocols.bst
 - freedesktop-sdk.bst:components/zstd.bst
-
+- python3-ply.bst
 
 depends:
 - freedesktop-sdk.bst:bootstrap-import.bst
@@ -47,7 +47,6 @@ environment:
   CXXFLAGS: "%{target_flags} -std=gnu++17"
 
 variables:
-  intel-clc: disabled
   intel-rt: disabled
   (?):
   - target_arch == "i686" or target_arch == "x86_64":
@@ -106,7 +105,6 @@ variables:
     -Dxlib-lease=enabled
     -Dzstd=enabled
     -Dvideo-codecs=h264dec,h264enc,h265dec,h265enc,vc1dec
-    -Dintel-clc=%{intel-clc}
     -Drust_std=2021
     -Dintel-rt=%{intel-rt}
 
