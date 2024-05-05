@@ -27,13 +27,8 @@ build-depends:
 
 depends:
 - freedesktop-sdk.bst:bootstrap-import.bst
-- freedesktop-sdk.bst:extensions/mesa/llvm.bst
-- freedesktop-sdk.bst:extensions/mesa/libclc.bst
 - freedesktop-sdk.bst:components/libdrm.bst
-- freedesktop-sdk.bst:components/libglvnd.bst
-- freedesktop-sdk.bst:components/libunwind.bst
 - freedesktop-sdk.bst:components/libva.bst
-- freedesktop-sdk.bst:components/libvdpau.bst
 - freedesktop-sdk.bst:components/opencl.bst
 - freedesktop-sdk.bst:components/xorg-lib-xfixes.bst
 - freedesktop-sdk.bst:components/xorg-lib-xrandr.bst
@@ -41,6 +36,12 @@ depends:
 - freedesktop-sdk.bst:components/xorg-lib-xxf86vm.bst
 - freedesktop-sdk.bst:components/vulkan-icd-loader.bst
 - freedesktop-sdk.bst:components/wayland.bst
+- freedesktop-sdk.bst:components/libglvnd.bst
+- freedesktop-sdk.bst:components/libvdpau.bst
+- freedesktop-sdk.bst:components/libunwind.bst
+- freedesktop-sdk.bst:components/zstd.bst
+- freedesktop-sdk.bst:extensions/mesa/libclc.bst
+- freedesktop-sdk.bst:extensions/mesa/llvm.bst
 - libdrm.bst
 
 
@@ -52,20 +53,24 @@ environment:
   CXXFLAGS: "%{target_flags} -std=gnu++17"
 
 variables:
+  intel-rt: disabled
   (?):
   - target_arch == "i686" or target_arch == "x86_64":
       gallium_drivers: iris,crocus,nouveau,r300,r600,radeonsi,svga,swrast,virgl,zink,i915
-      vulkan_drivers: amd,intel,intel_hasvk,swrast,virtio,nouveau-experimental
+      vulkan_drivers: amd,intel,intel_hasvk,swrast,virtio
       libunwind: enabled
   - target_arch == "arm" or target_arch == "aarch64":
-      gallium_drivers: 
-        etnaviv,freedreno,kmsro,lima,nouveau,panfrost,swrast,tegra,virgl,v3d,vc4,zink,r600,r300,radeonsi
+      gallium_drivers: asahi,etnaviv,freedreno,kmsro,lima,nouveau,panfrost,swrast,tegra,virgl,v3d,vc4,zink,r600,r300,radeonsi
       vulkan_drivers: freedreno,broadcom,panfrost,swrast,amd
       libunwind: disabled
   - target_arch in ("ppc64le", "ppc64", "riscv64"):
       gallium_drivers: nouveau,r600,r300,radeonsi,swrast,virgl
       vulkan_drivers: amd
       libunwind: disabled
+
+  # "Intel Ray Tracing is only supported on x86_64"
+  - target_arch == "x86_64":
+      intel-rt: enabled
 
   optimize-debug: "false"
   app-id: >-
@@ -81,11 +86,11 @@ variables:
     -Dgallium-nine=true
     -Dgallium-omx=disabled
     -Dgallium-rusticl=true
-    -Dgallium-opencl=icd
     -Dgallium-va=enabled
     -Dgallium-vdpau=enabled
     -Dgallium-xa=disabled
     -Dgbm=enabled
+    -Dgbm-backends-path="/usr/lib/%{gcc_triplet}/GL/lib/gbm"
     -Dgles1=disabled
     -Dgles2=enabled
     -Dglvnd=true
@@ -94,6 +99,7 @@ variables:
     -Dllvm=enabled
     -Dlmsensors=disabled
     -Dmicrosoft-clc=disabled
+    -Dandroid-libbacktrace=disabled
     -Dosmesa=false
     -Dplatforms=x11,wayland
     -Dselinux=false
@@ -104,8 +110,9 @@ variables:
     -Dvulkan-icd-dir="%{libdir}/vulkan/icd.d"
     -Dxlib-lease=enabled
     -Dzstd=enabled
-    -Dandroid-libbacktrace=disabled
     -Dvideo-codecs=h264dec,h264enc,h265dec,h265enc,vc1dec
+    -Drust_std=2021
+    -Dintel-rt=%{intel-rt}
 
 config:
 
@@ -194,7 +201,9 @@ sources:
 - kind: git_repo
   url: freedesktop:mesa/mesa.git
   track: main
-  ref: 24.0-branchpoint-1314-gfb62bffcdaff25e8ca6b4a9a2c7ce02e6b5bb1ed
+  ref: 24.0-branchpoint-3011-g493d5764e3e672ae86939dcaa918f844fcf5e0e4
+- kind: patch
+  path: patches/mesa/clang_res_path.patch
 - kind: local
   path: files/mesa/appdata.template
 # Rust dependencies:
