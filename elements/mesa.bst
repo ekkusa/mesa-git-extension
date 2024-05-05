@@ -55,7 +55,8 @@ variables:
       vulkan_drivers: amd,intel,intel_hasvk,swrast,virtio
       libunwind: enabled
   - target_arch == "arm" or target_arch == "aarch64":
-      gallium_drivers: asahi,etnaviv,freedreno,kmsro,lima,nouveau,panfrost,swrast,tegra,virgl,v3d,vc4,zink,r600,r300,radeonsi
+      gallium_drivers: 
+        asahi,etnaviv,freedreno,kmsro,lima,nouveau,panfrost,swrast,tegra,virgl,v3d,vc4,zink,r600,r300,radeonsi
       vulkan_drivers: freedreno,broadcom,panfrost,swrast,amd
       libunwind: disabled
   - target_arch in ("ppc64le", "ppc64", "riscv64"):
@@ -196,7 +197,7 @@ sources:
 - kind: git_repo
   url: freedesktop:mesa/mesa.git
   track: main
-  ref: 24.0-branchpoint-3011-g493d5764e3e672ae86939dcaa918f844fcf5e0e4
+  ref: 24.1-branchpoint-402-gcd3871e7a41eb516ab85a4b13203daa22257d8bf
 - kind: patch
   path: patches/mesa/clang_res_path.patch
 - kind: local
