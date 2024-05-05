@@ -53,22 +53,24 @@ environment:
   CXXFLAGS: "%{target_flags} -std=gnu++17"
 
 variables:
+  intel-rt: disabled
   (?):
   - target_arch == "i686" or target_arch == "x86_64":
       gallium_drivers: iris,crocus,nouveau,r300,r600,radeonsi,svga,swrast,virgl,zink,i915
       vulkan_drivers: amd,intel,intel_hasvk,swrast,virtio
       libunwind: enabled
-      intel-rt: enabled
   - target_arch == "arm" or target_arch == "aarch64":
       gallium_drivers: asahi,etnaviv,freedreno,kmsro,lima,nouveau,panfrost,swrast,tegra,virgl,v3d,vc4,zink,r600,r300,radeonsi
       vulkan_drivers: freedreno,broadcom,panfrost,swrast,amd
       libunwind: disabled
-      intel-rt: disabled
   - target_arch in ("ppc64le", "ppc64", "riscv64"):
       gallium_drivers: nouveau,r600,r300,radeonsi,swrast,virgl
       vulkan_drivers: amd
       libunwind: disabled
-      intel-rt: disabled
+
+  # "Intel Ray Tracing is only supported on x86_64"
+  - target_arch == "x86_64":
+      intel-rt: enabled
 
   optimize-debug: "false"
   app-id: >-
