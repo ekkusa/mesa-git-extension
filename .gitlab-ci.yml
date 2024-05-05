@@ -4,7 +4,6 @@ variables:
   DOCKER_REGISTRY: "registry.gitlab.com/freedesktop-sdk/infrastructure/freedesktop-sdk-docker-images"
 
   XDG_CACHE_HOME: "${CI_PROJECT_DIR}/cache"
-  REMOTE_CAS: 'cache.freedesktop-sdk.io'
   # mesa-git-extension is only available through Flathub beta
   RELEASE_CHANNEL: beta
 
@@ -40,21 +39,14 @@ before_script:
   - |
     export REPO_TOKEN="${FLATHUB_REPO_TOKEN_BETA}"
 
-  # Create CAS directory for SSL keys
-  - |
-    mkdir -p /etc/ssl/CAS
-    echo "$BB_CAS_PUSH_CERT" > /etc/ssl/CAS/server.crt
-    echo "$BB_CAS_PUSH_KEY" > /etc/ssl/CAS/server.key
-
   # Private SSL keys/certs for pushing to the CAS server
   - |
     # Force higher parallelity
-    MAX_JOBS=$(python -c "print(round(($(nproc) * ${BUILD_CPU_MULTIPLIER}) / ${BUILD_TASKS}))")
+    export MAX_JOBS=$(python -c "print(round(($(nproc) * ${BUILD_CPU_MULTIPLIER}) / ${BUILD_TASKS}))")
     [ -d ~/.config ] || mkdir -p ~/.config
-    [ -f /cache-certificate/server.crt ] && LOCAL_CAS=true
-    python3 -mmako.cmd templates/buildstream.conf \
-      --var MAX_JOBS=${MAX_JOBS} --var REMOTE_CAS=${REMOTE_CAS} \
-      --var LOCAL_CAS=${LOCAL_CAS} --output-file ~/.config/buildstream.conf
+    [ -f /cache-certificate/server.crt ] && export LOCAL_CAS=true
+    python3 -mmako.cmd templates/buildstream.conf --output-file ~/.config/buildstream.conf
+    cat ~/.config/buildstream.conf
 
 
 .merge_request_build:
