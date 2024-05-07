@@ -13,5 +13,5 @@ config:
   metadata:
     Runtime:
       name: org.freedesktop.Platform.GL.Debug.mesa-git
-      runtime: org.freedesktop.Platform/x86_64/%{branch}
+      runtime: org.freedesktop.Platform/%{flatpak_arch}/%{branch}
       sdk: org.freedesktop.Sdk/%{arch}/%{branch}
