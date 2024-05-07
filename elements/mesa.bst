@@ -49,16 +49,17 @@ environment:
 
 variables:
   intel-rt: disabled
+  teflon: false
   (?):
   - target_arch == "i686" or target_arch == "x86_64":
       gallium_drivers: iris,crocus,nouveau,r300,r600,radeonsi,svga,swrast,virgl,zink,i915
       vulkan_drivers: amd,intel,intel_hasvk,swrast,virtio
       libunwind: enabled
   - target_arch == "arm" or target_arch == "aarch64":
-      gallium_drivers: 
-        asahi,etnaviv,freedreno,kmsro,lima,nouveau,panfrost,swrast,tegra,virgl,v3d,vc4,zink,r600,r300,radeonsi
+      gallium_drivers: asahi,etnaviv,freedreno,kmsro,lima,nouveau,panfrost,swrast,tegra,virgl,v3d,vc4,zink,r600,r300,radeonsi
       vulkan_drivers: freedreno,broadcom,panfrost,swrast,amd
       libunwind: disabled
+      teflon: true
   - target_arch in ("ppc64le", "ppc64", "riscv64"):
       gallium_drivers: nouveau,r600,r300,radeonsi,swrast,virgl
       vulkan_drivers: amd
@@ -109,6 +110,7 @@ variables:
     -Dvideo-codecs=h264dec,h264enc,h265dec,h265enc,vc1dec
     -Drust_std=2021
     -Dintel-rt=%{intel-rt}
+    -Dteflon=%{teflon}
 
 config:
 
@@ -198,7 +200,7 @@ sources:
 - kind: git_repo
   url: freedesktop:mesa/mesa.git
   track: main
-  ref: 24.1-branchpoint-402-gcd3871e7a41eb516ab85a4b13203daa22257d8bf
+  ref: 24.0-branchpoint-3011-g493d5764e3e672ae86939dcaa918f844fcf5e0e4
 - kind: patch
   path: patches/mesa/clang_res_path.patch
 - kind: local
