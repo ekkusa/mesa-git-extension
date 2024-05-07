@@ -2,7 +2,7 @@ kind: meson
 
 build-depends:
 - freedesktop-sdk.bst:public-stacks/buildsystem-meson.bst
-- freedesktop-sdk.bst:components/appstream-glib.bst
+- freedesktop-sdk.bst:components/appstream-minimal.bst
 - freedesktop-sdk.bst:components/bison.bst
 - freedesktop-sdk.bst:components/flex.bst
 - freedesktop-sdk.bst:components/glslang.bst
@@ -124,7 +124,7 @@ config:
     (>):
     - |
       set -e
-      dest_dir=%{install-root}%{datadir}/appdata
+      dest_dir=%{install-root}%{datadir}/metainfo
       mkdir -p ${dest_dir}
       CURRENT_REF=$(git describe --match *branchpoint*)
       TIMESTAMP=$(git log -1 --format="%at" ${CURRENT_REF})
@@ -134,8 +134,9 @@ config:
         m4 -D__VERSION__=${CURRENT_REF} -D__VERSION_DATE__=${VERSION_DATE} \
         -D__APP_ID__=${app_id} \
         appdata.template > ${dest_dir}/${app_id}.appdata.xml
-        appstream-compose --basename ${app_id} \
-        --prefix=%{install-root}%{prefix} --origin=flatpak ${app_id}
+        appstreamcli compose --components ${app_id} \
+        --prefix=%{prefix} --result-root %{install-root} \
+        --data-dir %{install-root}%{flatpak_xmldir} --origin=flatpak %{install-root}
       done
 
     - |
