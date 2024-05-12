@@ -197,7 +197,7 @@ sources:
 - kind: git_repo
   url: freedesktop:mesa/mesa.git
   track: main
-  ref: 24.1-branchpoint-612-gc44e76676b7ff246b9d3455dcb1cd2f3a750535b
+  ref: 24.1-branchpoint-690-g74ea0d006ef7a3faf037c8ce1c2c669f4bfd06a3
 - kind: patch
   path: patches/mesa/clang_res_path.patch
 - kind: local
