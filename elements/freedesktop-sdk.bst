@@ -17,3 +17,6 @@ config:
         bootstrap_build_arch: 'x86_64'
     - target_arch == 'arm':
         bootstrap_build_arch: 'aarch64'
+
+  overrides:
+    components/meson.bst: meson.bst
