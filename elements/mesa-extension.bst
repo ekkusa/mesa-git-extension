@@ -2,6 +2,7 @@ kind: flatpak_image
 
 build-depends:
 - mesa.bst
+- mesa-metainfo.bst
 
 (@):
 - freedesktop-sdk.bst:elements/extensions/mesa/config.yml
