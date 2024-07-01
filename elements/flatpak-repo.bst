@@ -8,7 +8,7 @@ build-depends:
 
 config:
   arch: "%{flatpak_arch}"
-  repo-mode: archive
+  repo-mode: bare-user-only
   branch: '%{branch}'
 
   (?):
