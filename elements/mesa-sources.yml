@@ -17,9 +17,9 @@ sources:
   url: tar_https:crates.io/api/v1/crates/unicode-ident/1.0.12/download
   ref: 3354b9ac3fae1ff6755cb6db53683adb661634f67557942dea4facebec0fee4b
 - kind: tar
-  directory: subprojects/packagecache/proc-macro2-1.0.70
-  url: tar_https:crates.io/api/v1/crates/proc-macro2/1.0.70/download
-  ref: 39278fbbf5fb4f646ce651690877f89d1c5811a3d4acb27700c1cb3cdb78fd3b
+  directory: subprojects/packagecache/proc-macro2-1.0.86
+  url: tar_https:crates.io/api/v1/crates/proc-macro2/1.0.86/download
+  ref: 5e719e8df665df0d1c8fbfd238015744736151d4445ec0836b8e628aae103b77
 - kind: tar
   directory: subprojects/packagecache/quote-1.0.33
   url: tar_https:crates.io/api/v1/crates/quote/1.0.33/download
