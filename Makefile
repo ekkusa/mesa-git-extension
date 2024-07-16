@@ -1,3 +1,4 @@
+SHELL=/bin/bash
 ARCH?=$(shell uname -m | sed "s/^i.86$$/i686/" | sed "s/^ppc/powerpc/")
 REPO?=repo
 ARCH_OPTS=-o target_arch $(ARCH)
