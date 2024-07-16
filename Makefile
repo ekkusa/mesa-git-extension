@@ -3,6 +3,7 @@ REPO?=repo
 ARCH_OPTS=-o target_arch $(ARCH)
 BST=bst $(ARCH_OPTS)
 CHECKOUT_ROOT=runtimes
+GIT_DESCRIBE := $(shell git describe --long --abbrev=40)
 
 build: elements
 	$(BST) build flatpak-repo.bst
