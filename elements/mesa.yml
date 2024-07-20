@@ -6,6 +6,7 @@ build-depends:
 - freedesktop-sdk.bst:components/python3-mako.bst
 - freedesktop-sdk.bst:components/python3-ply.bst
 - freedesktop-sdk.bst:components/python3-pycparser.bst
+- freedesktop-sdk.bst:components/python3-pyyaml.bst
 - freedesktop-sdk.bst:components/rust.bst
 - freedesktop-sdk.bst:components/rust-bindgen.bst
 - freedesktop-sdk.bst:components/rust-cbindgen.bst
