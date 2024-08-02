@@ -1,0 +1,25 @@
+From a6d18a1ed8c919ffd0ae11eb416d0a66d82e00db Mon Sep 17 00:00:00 2001
+From: Jordan Petridis <jpetridis@gnome.org>
+Date: Wed, 24 Jul 2024 11:50:05 +0200
+Subject: [PATCH] components/rust: Enable more tools
+
+* rustdoc useful for building the documentation of projects
+* rustfmt is sometimes used as a build dependency for generated code
+* analysis is useful for debugging
+
+diff --git a/elements/components/rust.bst b/elements/components/rust.bst
+index 52c9fb59c..804103189 100644
+--- a/elements/components/rust.bst
++++ b/elements/components/rust.bst
+@@ -63,7 +63,7 @@ config:
+     vendor = true
+     verbose = 2
+     extended = true
+-    tools = ["cargo"]
++    tools = ["cargo", "rustdoc", "rustfmt", "analysis"]
+     [install]
+     prefix = "%{prefix}"
+     sysconfdir = "%{sysconfdir}"
+-- 
+2.45.2.windows.1
+
